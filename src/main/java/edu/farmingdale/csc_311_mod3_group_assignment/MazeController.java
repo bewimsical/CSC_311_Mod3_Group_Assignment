@@ -47,6 +47,8 @@ public class MazeController {
 
     private Image robot = new Image(MazeApplication.class.getResource("images/robot.png").toExternalForm());
 
+    private MovableSprite current;
+
     /**
      * This method runs when the controller is loaded
      */
@@ -55,6 +57,7 @@ public class MazeController {
         System.out.println("STARTING APPLICATION");
         robotButton1.setSelected(true);
         MovableSprite robotSprite = new MovableSprite(sprite1.getLayoutX(), sprite1.getLayoutY(), robot, sprite1);
+        current = robotSprite;
     }
     @FXML
     void restart() {
@@ -74,15 +77,19 @@ public class MazeController {
         switch (e.getCode()){
             case KeyCode.W:
                 System.out.println("w pressed");
+                current.moveUp();
                 break;
             case KeyCode.A:
                 System.out.println("a pressed");
+                current.moveLeft();
                 break;
             case KeyCode.S:
                 System.out.println("s pressed");
+                current.moveDown();
                 break;
             case KeyCode.D:
                 System.out.println("d pressed");
+                current.moveRight();
                 break;
         }
     }
