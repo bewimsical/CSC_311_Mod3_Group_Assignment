@@ -1,6 +1,6 @@
 package edu.farmingdale.csc_311_mod3_group_assignment;
 
-public class MovableSprite {
+public class MovableSprite extends Sprite{
     int dx;
     int dy;
 
