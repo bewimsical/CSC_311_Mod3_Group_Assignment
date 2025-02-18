@@ -27,7 +27,7 @@
                         <Button fx:id="solveMaze1" mnemonicParsing="false" prefHeight="26.0" prefWidth="129.0" text="Solve Maze" />
                      </children>
                   </HBox>
-                  <ImageView fitHeight="328.0" fitWidth="586.0" layoutX="7.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="302.0" fitWidth="537.0" layoutX="86.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/maze.png" />
                      </image></ImageView>
@@ -50,7 +50,7 @@
                         <Button fx:id="solveMaze2" mnemonicParsing="false" prefHeight="26.0" prefWidth="129.0" text="Solve Maze" />
                      </children>
                   </HBox>
-                  <ImageView fitHeight="284.0" fitWidth="399.0" layoutX="91.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="307.0" fitWidth="402.0" layoutX="99.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/maze2.png" />
                      </image></ImageView>
