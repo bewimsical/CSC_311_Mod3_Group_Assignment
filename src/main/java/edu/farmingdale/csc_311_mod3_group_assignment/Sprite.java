@@ -5,6 +5,7 @@ import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+//this class is currently used by the mazes. Could make abstrct and have a maze class inherit from sprite.
 public class Sprite {
     protected double x;
     protected double y;

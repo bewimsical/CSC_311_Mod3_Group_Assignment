@@ -8,11 +8,12 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.paint.Color;
 import javafx.scene.robot.Robot;
 
+//this class is for the robot it handles the robots movement and applies the image to the image view.
 public class MovableSprite extends Sprite{
-    protected Sprite maze;
-    protected Image maze_im;
-    protected double pixelRatio;
-    protected PixelReader pr;
+    protected Sprite maze; // this is the maze that the sprite is trying to complete
+    protected Image maze_im; // this is the maze image
+    protected double pixelRatio; // the pixel reader works with the full sized image. We need to scale the robots coordinates to get correct readings.
+    protected PixelReader pr; // used in the collision detection method. Checks pixels at given coordinates.
 
 
     public MovableSprite(){
@@ -25,7 +26,8 @@ public class MovableSprite extends Sprite{
         this.pixelRatio = maze_im.getHeight()/maze.getSprite().getFitHeight();
         this.pr = maze_im.getPixelReader();
     }
-
+    //All move methods are called on keypress in the controller.
+    //These methods check if there will be a collision. If there is no collision, the location of the sprite is changed.
     public void moveLeft(){
         double newX = x-5;
         if(!isCollision(newX, y)){
@@ -56,6 +58,10 @@ public class MovableSprite extends Sprite{
             sprite.setLayoutY(y);
         }
     }
+
+    //this checks if the new coordinates will be out of bounds and returns true if they are.
+    //Then this converts the x and y to match the image and checks if pixel color at the given coordinates is white.
+    // It returns false if its white and true if it is ant other color.
     public boolean isCollision(double x, double y){
         double maxX = maze.bounds.getMaxX();
         double maxY = maze.bounds.getMaxY();
@@ -64,8 +70,8 @@ public class MovableSprite extends Sprite{
         }else {
             x = x * pixelRatio;
             y = y * pixelRatio;
-            Color pixelColor = pr.getColor((int) x, (int) y);
-            Color c = new Color(1, 1, 1, 1); // extract to maze background?
+            Color pixelColor = pr.getColor((int) x, (int) y); // get pixel color
+            Color c = new Color(1, 1, 1, 1); // creates a white color object. Could extract to maze background attribute if we make a maze class.
 
             return (!pixelColor.equals(c));
         }

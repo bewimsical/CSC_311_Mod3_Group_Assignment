@@ -40,10 +40,10 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <HBox layoutX="7.0" layoutY="411.0" prefHeight="27.0" prefWidth="269.0">
+                  <HBox alignment="CENTER_LEFT" layoutX="7.0" layoutY="411.0" prefHeight="27.0" prefWidth="269.0">
                      <children>
-                        <RadioButton fx:id="robotButtom2" mnemonicParsing="false" prefHeight="18.0" prefWidth="95.0" text="Robot" />
-                        <RadioButton fx:id="carButtom2" mnemonicParsing="false" prefHeight="20.0" prefWidth="76.0" text="Car" />
+                        <RadioButton fx:id="robotButton2" mnemonicParsing="false" onAction="#setSpriteMaze2" prefHeight="18.0" prefWidth="95.0" text="Robot" />
+                        <RadioButton fx:id="carButton2" mnemonicParsing="false" onAction="#setSpriteMaze2" prefHeight="20.0" prefWidth="76.0" text="Car" />
                      </children>
                   </HBox>
                   <HBox layoutX="321.0" layoutY="411.0" prefHeight="35.0" prefWidth="239.0">

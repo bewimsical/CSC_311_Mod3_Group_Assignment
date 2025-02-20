@@ -36,25 +36,21 @@ public class MazeController {
     @FXML
     private RadioButton robotButton2;
 
-//    @FXML
-//    private AnchorPane maze1;
-
-    @FXML
-    private AnchorPane maze2;
 
     @FXML
     private ImageView sprite1;
     @FXML
     private ImageView maze1;
 
+
     private Image robot = new Image(MazeApplication.class.getResource("images/robot.png").toExternalForm());
     private Image maze1_im = new Image(MazeApplication.class.getResource("images/maze.png").toExternalForm());
-
+    // data members for the current maze and moveable object. Will change when tab changes and radio buttons are pressed
     private MovableSprite currentSprite;
     private Sprite currentMaze;
 
-
-    private AnimationTimer timer;
+    //we don't need this movement is handled in the movable sprite class
+//    private AnimationTimer timer;
 
     /**
      * This method runs when the controller is loaded
@@ -66,18 +62,29 @@ public class MazeController {
         currentMaze = new Sprite(maze1_im, maze1);
         currentSprite = new MovableSprite(robot, sprite1, currentMaze);
     }
+    //sets the x and y values to the start of the first maze. If we a maze class then we could set it to the current maze start values
     @FXML
     void restart() {
         currentSprite.setX(25);
         currentSprite.setY(242);
     }
 
+    //toggles the radio buttons.
+    // TODO create new movable sprite instances of the robot and car
     @FXML
     void setSpriteMaze1(ActionEvent e) {
         if (e.getSource().equals(robotButton1)){
-            carButton1.setSelected(false);
+            carButton1.setSelected(false); //
         }else if (e.getSource().equals(carButton1)){
             robotButton1.setSelected(false);
+        }
+    }
+    @FXML
+    void setSpriteMaze2(ActionEvent e) {
+        if (e.getSource().equals(robotButton2)){
+            carButton2.setSelected(false);
+        }else if (e.getSource().equals(carButton2)){
+            robotButton2.setSelected(false);
         }
     }
 //
@@ -117,7 +124,7 @@ public class MazeController {
 //
 //    }
 
-
+    //Handles the key events. Calls the move methods in the movable sprite class
     @FXML
     void handleKey(KeyEvent e){
         switch (e.getCode()){
