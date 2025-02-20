@@ -1,6 +1,7 @@
 package edu.farmingdale.csc_311_mod3_group_assignment;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -10,19 +11,22 @@ public class Sprite {
     protected Image image;
     @FXML
     protected ImageView sprite;
+    protected Bounds bounds;
 
     public Sprite(){
         this.x = 0;
         this.y = 0;
         this.image = null;
         this.sprite = null;
+        this.bounds = null;
     }
 
-    public Sprite(double x, double y, Image image, ImageView sprite){
-        this.x = x;
-        this.y = y;
+    public Sprite(Image image, ImageView sprite){
+        this.x = sprite.getLayoutX();
+        this.y = sprite.getLayoutY();
         this.image = image;
         this.sprite = sprite;
+        this.bounds = sprite.getBoundsInParent();
         render();
     }
 

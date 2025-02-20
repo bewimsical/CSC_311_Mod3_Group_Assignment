@@ -3,9 +3,7 @@ package edu.farmingdale.csc_311_mod3_group_assignment;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -38,18 +36,23 @@ public class MazeController {
     @FXML
     private RadioButton robotButton2;
 
-    @FXML
-    private AnchorPane maze1;
+//    @FXML
+//    private AnchorPane maze1;
 
     @FXML
     private AnchorPane maze2;
 
     @FXML
     private ImageView sprite1;
+    @FXML
+    private ImageView maze1;
 
     private Image robot = new Image(MazeApplication.class.getResource("images/robot.png").toExternalForm());
+    private Image maze1_im = new Image(MazeApplication.class.getResource("images/maze.png").toExternalForm());
 
-    private MovableSprite current;
+    private MovableSprite currentSprite;
+    private Sprite currentMaze;
+
 
     private AnimationTimer timer;
 
@@ -60,8 +63,8 @@ public class MazeController {
     public void initialize(){
         System.out.println("STARTING APPLICATION");
         robotButton1.setSelected(true);
-        MovableSprite robotSprite = new MovableSprite(sprite1.getLayoutX(), sprite1.getLayoutY(), robot, sprite1);
-        current = robotSprite;
+        currentMaze = new Sprite(maze1_im, maze1);
+        currentSprite = new MovableSprite(robot, sprite1, currentMaze);
     }
     @FXML
     void restart() {
@@ -76,42 +79,42 @@ public class MazeController {
             robotButton1.setSelected(false);
         }
     }
-
-    // TODO: apply towards robot and sprite
-    @FXML
-    public void BarrierPathFinder(ActionEvent e){
-        Image maze = new Image(MazeApplication.class.getResource("images/maze.png").toExternalForm());
-        timer = new AnimationTimer(){
-            @Override
-            public void handle(long now) {
-                current.render();
-                double dx = current.getX();
-                double dy = current.getY();
-                if (dx == 300 && dy == 300){
-                    timer.stop();
-                }
-                Bounds mazeBounds = mazeImage.getBoundsInParent();
-                Bounds objectBounds = movingObject.getBoundsInParent();
-
-                // If Object hit walls
-                if(objectBounds.intersects(mazeBounds)){
-                    System.out.println("object intersects maze");
-                    dx = -dx;
-                    dy = -dy;
-                }
-                // Keep the object within bounds(optional)
-                if(dx < 0 || dx > mazeBounds.getWidth() || dy < 0 || dy > mazeBounds.getHeight()){
-                    dx = -dx;
-                    dy = -dy;
-                }
-            }
-        };
-        timer.start();
-
-//    to check if an object hit a barrier in javaFX
-
-
-    }
+//
+//    // TODO: apply towards robot and sprite
+//    @FXML
+//    public void BarrierPathFinder(ActionEvent e){
+//        Image maze = new Image(MazeApplication.class.getResource("images/maze.png").toExternalForm());
+//        timer = new AnimationTimer(){
+//            @Override
+//            public void handle(long now) {
+//                current.render();
+//                double dx = current.getX();
+//                double dy = current.getY();
+//                if (dx == 300 && dy == 300){
+//                    timer.stop();
+//                }
+//                Bounds mazeBounds = mazeImage.getBoundsInParent();
+//                Bounds objectBounds = movingObject.getBoundsInParent();
+//
+//                // If Object hit walls
+//                if(objectBounds.intersects(mazeBounds)){
+//                    System.out.println("object intersects maze");
+//                    dx = -dx;
+//                    dy = -dy;
+//                }
+//                // Keep the object within bounds(optional)
+//                if(dx < 0 || dx > mazeBounds.getWidth() || dy < 0 || dy > mazeBounds.getHeight()){
+//                    dx = -dx;
+//                    dy = -dy;
+//                }
+//            }
+//        };
+//        timer.start();
+//
+////    to check if an object hit a barrier in javaFX
+//
+//
+//    }
 
 
     @FXML
@@ -119,19 +122,19 @@ public class MazeController {
         switch (e.getCode()){
             case KeyCode.W:
                 System.out.println("w pressed");
-                current.moveUp();
+                currentSprite.moveUp();
                 break;
             case KeyCode.A:
                 System.out.println("a pressed");
-                current.moveLeft();
+                currentSprite.moveLeft();
                 break;
             case KeyCode.S:
                 System.out.println("s pressed");
-                current.moveDown();
+                currentSprite.moveDown();
                 break;
             case KeyCode.D:
                 System.out.println("d pressed");
-                current.moveRight();
+                currentSprite.moveRight();
                 break;
         }
     }
