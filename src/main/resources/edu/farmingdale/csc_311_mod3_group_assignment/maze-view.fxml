@@ -23,8 +23,8 @@
                   </HBox>
                   <HBox layoutX="321.0" layoutY="407.0" prefHeight="35.0" prefWidth="239.0">
                      <children>
-                        <Button fx:id="restartMaze1" mnemonicParsing="false" onAction="#restart" prefHeight="21.0" prefWidth="109.0" text="Restart" />
-                        <Button fx:id="solveMaze1" mnemonicParsing="false" prefHeight="26.0" prefWidth="129.0" text="Solve Maze" />
+                        <Button fx:id="restartMaze1" mnemonicParsing="false" onAction="#restart" onMouseClicked="#restart" prefHeight="21.0" prefWidth="109.0" text="Restart" />
+                        <Button fx:id="solveMaze1" mnemonicParsing="false" onMouseClicked="#initialize" prefHeight="26.0" prefWidth="129.0" text="Solve Maze" />
                      </children>
                   </HBox>
                   <ImageView fitHeight="395.0" fitWidth="566.0" layoutX="7.0" pickOnBounds="true" preserveRatio="true">
@@ -32,7 +32,7 @@
                         <Image url="@images/maze.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="sprite1" fitHeight="27.0" fitWidth="22.0" layoutX="22.0" layoutY="236.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="sprite1" fitHeight="27.0" fitWidth="22.0" layoutX="22.0" layoutY="236.0" onKeyPressed="#handleKey" pickOnBounds="true" preserveRatio="true" />
                </children></AnchorPane>
       </content>
     </Tab>
