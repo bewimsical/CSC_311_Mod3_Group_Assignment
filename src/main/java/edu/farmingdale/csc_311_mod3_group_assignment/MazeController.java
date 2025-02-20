@@ -68,7 +68,8 @@ public class MazeController {
     }
     @FXML
     void restart() {
-        System.out.println("button clicked");
+        currentSprite.setX(25);
+        currentSprite.setY(242);
     }
 
     @FXML

@@ -21,13 +21,13 @@
                         <RadioButton fx:id="carButton1" mnemonicParsing="false" onAction="#setSpriteMaze1" prefHeight="20.0" prefWidth="76.0" text="Car" />
                      </children>
                   </HBox>
-                  <HBox layoutX="321.0" layoutY="407.0" prefHeight="35.0" prefWidth="239.0">
+                  <HBox layoutX="321.0" layoutY="411.0" prefHeight="35.0" prefWidth="239.0">
                      <children>
                         <Button fx:id="restartMaze1" mnemonicParsing="false" onAction="#restart" onMouseClicked="#restart" prefHeight="21.0" prefWidth="109.0" text="Restart" />
                         <Button fx:id="solveMaze1" mnemonicParsing="false" onMouseClicked="#initialize" prefHeight="26.0" prefWidth="129.0" text="Solve Maze" />
                      </children>
                   </HBox>
-                  <ImageView fx:id="maze1" fitHeight="395.0" fitWidth="566.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="maze1" fitHeight="400.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/maze.png" />
                      </image>
@@ -40,19 +40,19 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <HBox layoutX="6.0" layoutY="341.0" prefHeight="27.0" prefWidth="269.0">
+                  <HBox layoutX="7.0" layoutY="411.0" prefHeight="27.0" prefWidth="269.0">
                      <children>
                         <RadioButton fx:id="robotButtom2" mnemonicParsing="false" prefHeight="18.0" prefWidth="95.0" text="Robot" />
                         <RadioButton fx:id="carButtom2" mnemonicParsing="false" prefHeight="20.0" prefWidth="76.0" text="Car" />
                      </children>
                   </HBox>
-                  <HBox layoutX="361.0" layoutY="333.0" prefHeight="35.0" prefWidth="239.0">
+                  <HBox layoutX="321.0" layoutY="411.0" prefHeight="35.0" prefWidth="239.0">
                      <children>
                         <Button fx:id="restartMaze2" mnemonicParsing="false" prefHeight="21.0" prefWidth="109.0" text="Restart" />
                         <Button fx:id="solveMaze2" mnemonicParsing="false" prefHeight="26.0" prefWidth="129.0" text="Solve Maze" />
                      </children>
                   </HBox>
-                  <ImageView fitHeight="307.0" fitWidth="402.0" layoutX="99.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="400.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/maze2.png" />
                      </image></ImageView>

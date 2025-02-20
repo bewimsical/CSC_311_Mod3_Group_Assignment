@@ -36,6 +36,7 @@ public class Sprite {
 
     public void setX(double x) {
         this.x = x;
+        this.sprite.setLayoutX(x);
     }
 
     public double getY() {
@@ -44,6 +45,7 @@ public class Sprite {
 
     public void setY(double y) {
         this.y = y;
+        this.sprite.setLayoutY(y);
     }
 
     public Image getImage() {
@@ -52,6 +54,7 @@ public class Sprite {
 
     public void setImage(Image image) {
         this.image = image;
+        this.render();
     }
 
     public ImageView getSprite() {

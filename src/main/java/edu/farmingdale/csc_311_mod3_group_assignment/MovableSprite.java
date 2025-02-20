@@ -65,7 +65,7 @@ public class MovableSprite extends Sprite{
             x = x * pixelRatio;
             y = y * pixelRatio;
             Color pixelColor = pr.getColor((int) x, (int) y);
-            Color c = new Color(1, 1, 1, 1);
+            Color c = new Color(1, 1, 1, 1); // extract to maze background?
 
             return (!pixelColor.equals(c));
         }
