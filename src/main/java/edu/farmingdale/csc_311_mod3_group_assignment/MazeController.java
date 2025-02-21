@@ -97,10 +97,23 @@ public class MazeController {
     //sets the x and y values to the start of the first maze. If we a maze class then we could set it to the current maze start values
     @FXML
     void restart() {
+
+        currentSprite.setX(25);
+        currentSprite.setY(242);
+    }
+@FXML
+void setrestartMaze1(ActionEvent e) {
+    System.out.println("RETURNING TO START POSITION");
+        currentSprite.setX(25);
+        currentSprite.setY(242);
+    }
+    @FXML
+    void setrestartMaze2(ActionEvent e) {
         System.out.println("RETURNING TO START POSITION");
         currentSprite.setX(25);
         currentSprite.setY(242);
     }
+
 
     //toggles the radio buttons.
     // TODO create new movable sprite instances of the robot and car
