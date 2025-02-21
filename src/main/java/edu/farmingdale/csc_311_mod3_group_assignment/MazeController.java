@@ -130,7 +130,67 @@ public class MazeController {
 //    }
 
 
+@FXML
+public void mazeSolver1 (MouseEvent event) {
+    List<Point2D> path = List.of(
+            new Point2D(22.0, 236.0),
+            new Point2D(47.0, 236.0),
+            new Point2D(47.0, 136.0),
+            new Point2D(252.0, 136.0),
+            new Point2D(252.0, 86.0),
+            new Point2D(302.0, 86.0),
+            new Point2D(302.0, 291.0),
+            new Point2D(357.0, 291.0),
+            new Point2D(357.0, 191.0),
+            new Point2D(462.0, 191.0),
+            new Point2D(462.0, 91.0),
+            new Point2D(512.0, 91.0),
+            new Point2D(512.0, 221.0),
+            new Point2D(537.0, 221.0)
+    );
+    animateSpriteAlongPath(path);
+}
 
+
+    private void animateSpriteAlongPath(List<Point2D> path){
+        final int[] index = {0};
+
+        AnimationTimer timer = new AnimationTimer(){
+            @Override
+            public void handle(long now){
+                if (index[0] >= path.size()){
+                    stop();
+                    return;
+                }
+                Point2D target = path.get(index[0]);
+                double targetX = target.getX();
+                double targetY = target.getY();
+                double currentX = currentSprite.getX(); // Use currentSprite here
+                double currentY = currentSprite.getY();
+                double deltaX = targetX - currentX;
+                double deltaY = targetY - currentY;
+                double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                double speed = 2;
+
+                if (distance < speed){
+                    currentSprite.setX(targetX);
+                    currentSprite.setY(targetY);
+                    currentSprite.getSprite().setLayoutX(targetX);
+                    currentSprite.getSprite().setLayoutY(targetY);
+                    index[0]++;
+                } else {
+                    double moveX = (deltaX / distance) * speed;
+                    double moveY = (deltaY / distance) * speed;
+                    currentSprite.setX(currentX + moveX);
+                    currentSprite.setY(currentY + moveY);
+                    currentSprite.getSprite().setLayoutX(currentSprite.getX());
+                    currentSprite.getSprite().setLayoutY(currentSprite.getY());
+                }
+                currentSprite.render();
+            }
+        };
+        timer.start();
+    }
 
 
     //Handles the key events. Calls the move methods in the movable sprite class
