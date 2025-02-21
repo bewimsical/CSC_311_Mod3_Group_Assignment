@@ -4,6 +4,7 @@ import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -11,7 +12,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+
+import java.util.List;
 
 public class MazeController {
     @FXML
@@ -90,6 +94,8 @@ public class MazeController {
                 if (dx == 300 && dy == 300){
                     timer.stop();
                 }
+
+                /*
                 Bounds mazeBounds = mazeImage.getBoundsInParent();
                 Bounds objectBounds = movingObject.getBoundsInParent();
 
@@ -104,6 +110,8 @@ public class MazeController {
                     dx = -dx;
                     dy = -dy;
                 }
+
+                 */
             }
         };
         timer.start();
@@ -113,6 +121,67 @@ public class MazeController {
 
     }
 
+    @FXML
+    public void mazeSolver1 (MouseEvent event) {
+        List<Point2D> path = List.of(
+                new Point2D(22.0, 236.0),
+                new Point2D(47.0, 236.0),
+                new Point2D(47.0, 136.0),
+                new Point2D(252.0, 136.0),
+                new Point2D(252.0, 86.0),
+                new Point2D(302.0, 86.0),
+                new Point2D(302.0, 291.0),
+                new Point2D(357.0, 291.0),
+                new Point2D(357.0, 191.0),
+                new Point2D(462.0, 191.0),
+                new Point2D(462.0, 91.0),
+                new Point2D(512.0, 91.0),
+                new Point2D(512.0, 221.0),
+                new Point2D(537.0, 221.0)
+        );
+        animateSpriteAlongPath(path);
+    }
+
+
+    private void animateSpriteAlongPath(List<Point2D> path){
+        final int[] index = {0};
+
+        AnimationTimer timer = new AnimationTimer(){
+            @Override
+            public void handle(long now){
+                if (index[0] >=path.size()){
+                    stop();
+                    return;
+                }
+                Point2D target =path.get(index[0]);
+                double targetX =target.getX();
+                double targetY =target.getY();
+                double currentX =current.getX();
+                double currentY = current.getY();
+                double deltaX =targetX -currentX;
+                double deltaY = targetY- currentY;
+                double distance = Math.sqrt(deltaX*deltaX+ deltaY* deltaY);
+                double speed =2;
+
+                if (distance<speed){
+                    current.setX(targetX);
+                    current.setY(targetY);
+                    current.getSprite().setLayoutX(targetX);
+                    current.getSprite().setLayoutY(targetY);
+                    index[0]++;
+                }else{
+                    double moveX = (deltaX/distance)*speed;
+                    double moveY =(deltaY/distance)* speed;
+                    current.setX(currentX+moveX);
+                    current.setY(currentY +moveY);
+                    current.getSprite().setLayoutX(current.getX());
+                    current.getSprite().setLayoutY(current.getY());
+                }
+                current.render();
+            }
+        };
+        timer.start();
+    }
 
     @FXML
     void handleKey(KeyEvent e){
