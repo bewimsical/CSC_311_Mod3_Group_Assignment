@@ -10,54 +10,54 @@
 <?import javafx.scene.layout.HBox?>
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="574.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.farmingdale.csc_311_mod3_group_assignment.MazeController">
-  <tabs>
-    <Tab text="Untitled Tab 1">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="648.0">
-               <children>
-                  <HBox alignment="CENTER_LEFT" layoutX="7.0" layoutY="411.0" prefHeight="27.0" prefWidth="269.0">
-                     <children>
-                        <RadioButton fx:id="robotButton1" mnemonicParsing="false" onAction="#setSpriteMaze1" prefHeight="18.0" prefWidth="95.0" text="Robot" />
-                        <RadioButton fx:id="carButton1" mnemonicParsing="false" onAction="#setSpriteMaze1" prefHeight="20.0" prefWidth="76.0" text="Car" />
-                     </children>
-                  </HBox>
-                  <HBox layoutX="321.0" layoutY="411.0" prefHeight="35.0" prefWidth="239.0">
-                     <children>
-                        <Button fx:id="restartMaze1" mnemonicParsing="false" onAction="#restart" onMouseClicked="#restart" prefHeight="21.0" prefWidth="109.0" text="Restart" />
-                        <Button fx:id="solveMaze1" mnemonicParsing="false" onMouseClicked="#mazeSolver1" prefHeight="26.0" prefWidth="129.0" text="Solve Maze" />
-                     </children>
-                  </HBox>
-                  <ImageView fx:id="maze1" fitHeight="400.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/maze.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="sprite1" fitHeight="15.0" fitWidth="15.0" layoutX="25.0" layoutY="242.0" onKeyPressed="#handleKey" pickOnBounds="true" preserveRatio="true" />
-               </children></AnchorPane>
-      </content>
-    </Tab>
-    <Tab text="Untitled Tab 2">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <HBox alignment="CENTER_LEFT" layoutX="7.0" layoutY="411.0" prefHeight="27.0" prefWidth="269.0">
-                     <children>
-                        <RadioButton fx:id="robotButton2" mnemonicParsing="false" onAction="#setSpriteMaze2" prefHeight="18.0" prefWidth="95.0" text="Robot" />
-                        <RadioButton fx:id="carButton2" mnemonicParsing="false" onAction="#setSpriteMaze2" prefHeight="20.0" prefWidth="76.0" text="Car" />
-                     </children>
-                  </HBox>
-                  <HBox layoutX="321.0" layoutY="411.0" prefHeight="35.0" prefWidth="239.0">
-                     <children>
-                        <Button fx:id="restartMaze2" mnemonicParsing="false" prefHeight="21.0" prefWidth="109.0" text="Restart" />
-                        <Button fx:id="solveMaze2" mnemonicParsing="false" prefHeight="26.0" prefWidth="129.0" text="Solve Maze" />
-                     </children>
-                  </HBox>
-                  <ImageView fitHeight="400.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/maze2.png" />
-                     </image></ImageView>
-               </children></AnchorPane>
-      </content>
-    </Tab>
-  </tabs>
+    <tabs>
+        <Tab text="Untitled Tab 1">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="648.0">
+                    <children>
+                        <HBox alignment="CENTER_LEFT" layoutX="7.0" layoutY="411.0" prefHeight="27.0" prefWidth="269.0">
+                            <children>
+                                <RadioButton fx:id="robotButton1" mnemonicParsing="false" onAction="#setSpriteMaze1" prefHeight="18.0" prefWidth="95.0" text="Robot" />
+                                <RadioButton fx:id="carButton1" mnemonicParsing="false" onAction="#setSpriteMaze1" prefHeight="20.0" prefWidth="76.0" text="Car" />
+                            </children>
+                        </HBox>
+                        <HBox layoutX="321.0" layoutY="411.0" prefHeight="35.0" prefWidth="239.0">
+                            <children>
+                                <Button fx:id="restartMaze1" mnemonicParsing="false" onAction="#restart" onMouseClicked="#restart" prefHeight="21.0" prefWidth="109.0" text="Restart" />
+                                <Button fx:id="solveMaze1" mnemonicParsing="false" onMouseClicked="#initialize" prefHeight="26.0" prefWidth="129.0" text="Solve Maze" />
+                            </children>
+                        </HBox>
+                        <ImageView fx:id="maze1" fitHeight="400.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/maze.png" />
+                            </image>
+                        </ImageView>
+                        <ImageView fx:id="sprite1" fitHeight="15.0" fitWidth="15.0" layoutX="25.0" layoutY="242.0" onKeyPressed="#handleKey" pickOnBounds="true" preserveRatio="true" />
+                    </children></AnchorPane>
+            </content>
+        </Tab>
+        <Tab text="Untitled Tab 2">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <HBox alignment="CENTER_LEFT" layoutX="7.0" layoutY="411.0" prefHeight="27.0" prefWidth="269.0">
+                            <children>
+                                <RadioButton fx:id="robotButton2" mnemonicParsing="false" onAction="#setSpriteMaze2" prefHeight="18.0" prefWidth="95.0" text="Robot" />
+                                <RadioButton fx:id="carButton2" mnemonicParsing="false" onAction="#setSpriteMaze2" prefHeight="20.0" prefWidth="76.0" text="Car" />
+                            </children>
+                        </HBox>
+                        <HBox layoutX="321.0" layoutY="411.0" prefHeight="35.0" prefWidth="239.0">
+                            <children>
+                                <Button fx:id="restartMaze2" mnemonicParsing="false" prefHeight="21.0" prefWidth="109.0" text="Restart" />
+                                <Button fx:id="solveMaze2" mnemonicParsing="false" prefHeight="26.0" prefWidth="129.0" text="Solve Maze" />
+                            </children>
+                        </HBox>
+                        <ImageView fitHeight="400.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/maze2.png" />
+                            </image></ImageView>
+                    </children></AnchorPane>
+            </content>
+        </Tab>
+    </tabs>
 </TabPane>
