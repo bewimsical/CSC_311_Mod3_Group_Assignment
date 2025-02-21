@@ -44,6 +44,7 @@ public class MazeController {
 
 
     private Image robot = new Image(MazeApplication.class.getResource("images/robot.png").toExternalForm());
+    private Image car = new Image(MazeApplication.class.getResource("images/car.png").toExternalForm());
     private Image maze1_im = new Image(MazeApplication.class.getResource("images/maze.png").toExternalForm());
     // data members for the current maze and moveable object. Will change when tab changes and radio buttons are pressed
     private MovableSprite currentSprite;
@@ -61,6 +62,7 @@ public class MazeController {
         robotButton1.setSelected(true);
         currentMaze = new Sprite(maze1_im, maze1);
         currentSprite = new MovableSprite(robot, sprite1, currentMaze);
+
     }
     //sets the x and y values to the start of the first maze. If we a maze class then we could set it to the current maze start values
     @FXML
@@ -76,6 +78,9 @@ public class MazeController {
         if (e.getSource().equals(robotButton1)){
             carButton1.setSelected(false); //
         }else if (e.getSource().equals(carButton1)){
+            carButton1.setSelected(true);
+            currentSprite = new MovableSprite(car, sprite1, currentMaze);
+
             robotButton1.setSelected(false);
         }
     }
