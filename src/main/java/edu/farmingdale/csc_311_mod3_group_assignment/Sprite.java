@@ -1,28 +1,33 @@
 package edu.farmingdale.csc_311_mod3_group_assignment;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+//this class is currently used by the mazes. Could make abstrct and have a maze class inherit from sprite.
 public class Sprite {
     protected double x;
     protected double y;
     protected Image image;
     @FXML
     protected ImageView sprite;
+    protected Bounds bounds;
 
     public Sprite(){
         this.x = 0;
         this.y = 0;
         this.image = null;
         this.sprite = null;
+        this.bounds = null;
     }
 
-    public Sprite(double x, double y, Image image, ImageView sprite){
-        this.x = x;
-        this.y = y;
+    public Sprite(Image image, ImageView sprite){
+        this.x = sprite.getLayoutX();
+        this.y = sprite.getLayoutY();
         this.image = image;
         this.sprite = sprite;
+        this.bounds = sprite.getBoundsInParent();
         render();
     }
 
@@ -32,6 +37,7 @@ public class Sprite {
 
     public void setX(double x) {
         this.x = x;
+        this.sprite.setLayoutX(x);
     }
 
     public double getY() {
@@ -40,6 +46,7 @@ public class Sprite {
 
     public void setY(double y) {
         this.y = y;
+        this.sprite.setLayoutY(y);
     }
 
     public Image getImage() {
@@ -48,6 +55,7 @@ public class Sprite {
 
     public void setImage(Image image) {
         this.image = image;
+        this.render();
     }
 
     public ImageView getSprite() {
