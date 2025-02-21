@@ -52,10 +52,11 @@
                         <Button fx:id="solveMaze2" mnemonicParsing="false" prefHeight="26.0" prefWidth="129.0" text="Solve Maze" />
                      </children>
                   </HBox>
-                  <ImageView fitHeight="400.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="maze2" fitHeight="400.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/maze2.png" />
                      </image></ImageView>
+                  <ImageView fx:id="sprite2" fitHeight="15.0" fitWidth="15.0" layoutX="35.0" layoutY="252.0" onKeyPressed="#handleKey" pickOnBounds="true" preserveRatio="true" />
                </children></AnchorPane>
       </content>
     </Tab>

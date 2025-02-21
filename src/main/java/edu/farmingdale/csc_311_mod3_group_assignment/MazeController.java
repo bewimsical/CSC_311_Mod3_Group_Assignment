@@ -42,10 +42,17 @@ public class MazeController {
     @FXML
     private ImageView maze1;
 
+    @FXML
+    private ImageView maze2;
+
+    @FXML
+    private ImageView sprite2;
+
 
     private Image robot = new Image(MazeApplication.class.getResource("images/robot.png").toExternalForm());
     private Image car = new Image(MazeApplication.class.getResource("images/car.png").toExternalForm());
     private Image maze1_im = new Image(MazeApplication.class.getResource("images/maze.png").toExternalForm());
+    private Image maze2_im = new Image(MazeApplication.class.getResource("images/maze2.png").toExternalForm());
     // data members for the current maze and moveable object. Will change when tab changes and radio buttons are pressed
     private MovableSprite currentSprite;
     private Sprite currentMaze;
@@ -76,19 +83,26 @@ public class MazeController {
     @FXML
     void setSpriteMaze1(ActionEvent e) {
         if (e.getSource().equals(robotButton1)){
+            robotButton1.setSelected(true);
+            currentMaze = new Sprite(maze1_im, maze1);
+            currentSprite = new MovableSprite(robot, sprite1, currentMaze);
             carButton1.setSelected(false); //
         }else if (e.getSource().equals(carButton1)){
             carButton1.setSelected(true);
             currentSprite = new MovableSprite(car, sprite1, currentMaze);
-
             robotButton1.setSelected(false);
         }
     }
     @FXML
     void setSpriteMaze2(ActionEvent e) {
         if (e.getSource().equals(robotButton2)){
+            robotButton2.setSelected(true);
+            currentMaze = new Sprite(maze2_im, maze2);
+            currentSprite = new MovableSprite(robot, sprite2, currentMaze);
             carButton2.setSelected(false);
         }else if (e.getSource().equals(carButton2)){
+            carButton2.setSelected(true);
+            currentSprite = new MovableSprite(car, sprite2, currentMaze);
             robotButton2.setSelected(false);
         }
     }
