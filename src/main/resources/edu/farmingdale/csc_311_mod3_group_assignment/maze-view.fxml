@@ -11,7 +11,7 @@
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="574.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.farmingdale.csc_311_mod3_group_assignment.MazeController">
   <tabs>
-    <Tab onSelectionChanged="#initialize" text="Untitled Tab 1">
+    <Tab onSelectionChanged="#initialize1" text="Untitled Tab 1">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="648.0">
                <children>

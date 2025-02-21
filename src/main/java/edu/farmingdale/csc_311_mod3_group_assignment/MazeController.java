@@ -75,8 +75,18 @@ public class MazeController {
 
     }
     @FXML
+    public void initialize1(){
+        robotButton1.setSelected(true);
+        carButton1.setSelected(false);
+        currentMaze = new Sprite(maze1_im, maze1);
+        currentSprite = new MovableSprite(robot, sprite1, currentMaze);
+        currentSprite.setX(25);
+        currentSprite.setY(242);
+
+    }
+    @FXML
     public void initialize2() {
-        System.out.println("STARTING APPLICATION");
+        System.out.println("SWITCHING MAZE");
         robotButton2.setSelected(true);
         carButton2.setSelected(false);
         currentMaze = new Sprite(maze2_im, maze2);
