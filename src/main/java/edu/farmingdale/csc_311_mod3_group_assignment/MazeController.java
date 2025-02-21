@@ -101,10 +101,14 @@ public class MazeController {
             currentMaze = new Sprite(maze1_im, maze1);
             currentSprite = new MovableSprite(robot, sprite1, currentMaze);
             carButton1.setSelected(false); //
+            currentSprite.setX(25);
+            currentSprite.setY(242);
         }else if (e.getSource().equals(carButton1)){
             carButton1.setSelected(true);
             currentSprite = new MovableSprite(car, sprite1, currentMaze);
             robotButton1.setSelected(false);
+            currentSprite.setX(25);
+            currentSprite.setY(242);
         }
     }
     @FXML
@@ -114,10 +118,14 @@ public class MazeController {
             currentMaze = new Sprite(maze2_im, maze2);
             currentSprite = new MovableSprite(robot, sprite2, currentMaze);
             carButton2.setSelected(false);
+            currentSprite.setX(25);
+            currentSprite.setY(242);
         }else if (e.getSource().equals(carButton2)){
             carButton2.setSelected(true);
             currentSprite = new MovableSprite(car, sprite2, currentMaze);
             robotButton2.setSelected(false);
+            currentSprite.setX(25);
+            currentSprite.setY(242);
         }
     }
 //
