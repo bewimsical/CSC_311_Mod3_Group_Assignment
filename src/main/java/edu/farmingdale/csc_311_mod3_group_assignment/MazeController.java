@@ -3,13 +3,17 @@ package edu.farmingdale.csc_311_mod3_group_assignment;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+
+import java.util.List;
 
 public class MazeController {
     @FXML
@@ -123,6 +127,10 @@ public class MazeController {
 //
 //
 //    }
+
+
+
+
 
     //Handles the key events. Calls the move methods in the movable sprite class
     @FXML
