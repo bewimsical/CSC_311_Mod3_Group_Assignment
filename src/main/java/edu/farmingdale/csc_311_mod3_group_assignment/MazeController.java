@@ -65,6 +65,7 @@ public class MazeController {
     //sets the x and y values to the start of the first maze. If we a maze class then we could set it to the current maze start values
     @FXML
     void restart() {
+        System.out.println("TEST!!");
         currentSprite.setX(25);
         currentSprite.setY(242);
     }
