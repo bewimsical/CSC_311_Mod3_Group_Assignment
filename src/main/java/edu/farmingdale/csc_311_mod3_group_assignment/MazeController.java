@@ -67,11 +67,23 @@ public class MazeController {
     public void initialize(){
         System.out.println("STARTING APPLICATION");
         robotButton1.setSelected(true);
+        carButton1.setSelected(false);
         currentMaze = new Sprite(maze1_im, maze1);
         currentSprite = new MovableSprite(robot, sprite1, currentMaze);
+        currentSprite.setX(25);
+        currentSprite.setY(242);
 
     }
-
+    @FXML
+    public void initialize2() {
+        System.out.println("STARTING APPLICATION");
+        robotButton2.setSelected(true);
+        carButton2.setSelected(false);
+        currentMaze = new Sprite(maze2_im, maze2);
+        currentSprite = new MovableSprite(robot, sprite2, currentMaze);
+        currentSprite.setX(25);
+        currentSprite.setY(242);
+    }
     //sets the x and y values to the start of the first maze. If we a maze class then we could set it to the current maze start values
     @FXML
     void restart() {
