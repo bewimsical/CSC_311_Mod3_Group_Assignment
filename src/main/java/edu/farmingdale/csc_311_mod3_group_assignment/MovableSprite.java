@@ -76,4 +76,34 @@ public class MovableSprite extends Sprite{
             return (!pixelColor.equals(c));
         }
     }
+
+
+    public boolean isAreaClear(double posX, double posY){
+        //Checks several key pointsaround the sprite
+        double spriteWidth = sprite.getFitWidth();
+        double spriteHeight = sprite.getFitHeight();
+
+        return isCollisionPoint(posX, posY) &&
+                isCollisionPoint(posX + spriteWidth, posY) &&
+                isCollisionPoint(posX, posY + spriteHeight) &&
+                isCollisionPoint(posX + spriteWidth, posY + spriteHeight);
+    }
+
+    private boolean isCollisionPoint(double x, double y) {
+        //Uses the maze bounds from the maze sprite
+        double maxX = maze.bounds.getMaxX();
+        double maxY = maze.bounds.getMaxY();
+
+        if (x <= 0 || x >= maxX || y <= 0 || y >= maxY) {
+            return false;//outofbounds /=  clear
+        } else {
+            //scales coordinates to the full img
+            double checkX = x * pixelRatio;
+            double checkY = y * pixelRatio;
+            Color pixelColor = pr.getColor((int) checkX, (int) checkY);
+            Color white = Color.WHITE;
+            return pixelColor.equals(white);
+        }
+    }
+
 }
