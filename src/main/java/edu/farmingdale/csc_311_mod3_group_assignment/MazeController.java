@@ -259,79 +259,15 @@ public class MazeController {
 
 
 
-    private List<Point2D> bfsSolveMaze(double startX, double startY, double goalX, double goalY, int step){
-        Queue<Point2D> frontier = new LinkedList<>();
-        Map<Point2D, Point2D> cameFrom = new HashMap<>();
 
-        Point2D start = new Point2D(startX, startY);
-        frontier.add(start);
-        cameFrom.put(start, null);
-
-        //Basically allows movement in all directions
-        Point2D[] directions = new Point2D[]{
-                new Point2D(step, 0),
-                new Point2D(-step, 0),
-                new Point2D(0, step),
-                new Point2D(0, -step)
-        };
-        Point2D endNode = null;
-        while (!frontier.isEmpty()){
-            Point2D current = frontier.poll();
-            if (current.distance(goalX, goalY) < step) {
-                endNode = current;
-                break;
-            }
-            for (Point2D dir :directions){
-                Point2D next =current.add(dir);
-                double nx = Math.round(next.getX()/ step)* step;
-                double ny =Math.round(next.getY() /step) *step;
-                Point2D nextPoint = new Point2D(nx,ny);
-
-                if(cameFrom.containsKey(nextPoint))
-                    continue;
-                //Use mazes bounds from currentSprite.maze
-                double maxX = currentSprite.maze.bounds.getMaxX();
-                double maxY = currentSprite.maze.bounds.getMaxY();
-                if (nx < 0 || nx > maxX || ny < 0 || ny > maxY)
-                    continue;
-                if (!currentSprite.isAreaClear(nx, ny))
-                    continue;
-                frontier.add(nextPoint);
-                cameFrom.put(nextPoint, current);
-            }
-        }
-
-        if (endNode == null) {
-            //System.out.println("No path found :(");
-            return new ArrayList<>();
-        }
-
-        //Reconstructs the path
-        List<Point2D> path = new LinkedList<>();
-        Point2D current = endNode;
-        while (current != null){
-            path.add(0, current);
-            current = cameFrom.get(current);
-        }
-        return path;
-    }
     //does not work because end coordinates are out of bounds. We should make a maze class that has startX startY endX and endY values.
     @FXML
-    public void mazeSolver1(MouseEvent event){
+    public void mazeSolver1(MouseEvent event) {
+        double goalX = currentSprite.getMaze().getGoalX();
+        double goalY = currentSprite.getMaze().getGoalY();
+        int step =5;
 
-        double startX = currentSprite.getX();
-        double startY = currentSprite.getY();
-
-       double goalX = currentSprite.getMaze().getGoalX();//If we make a maze class we can use the current mazes start and end here.
-        double goalY = currentSprite.getMaze().getGoalY();;
-        int step = 5;
-        List<Point2D> path = bfsSolveMaze(startX,startY,goalX,goalY,step);
-        if(path.isEmpty()){
-            System.out.println("No path found :(");
-        }else{
-            animateSpriteAlongPath(path);
-            System.out.println("Look at me go!");
-        }
+        currentSprite.solveMaze(goalX,goalY,step);
     }
 
 
