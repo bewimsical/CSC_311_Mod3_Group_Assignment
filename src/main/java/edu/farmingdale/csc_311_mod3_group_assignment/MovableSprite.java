@@ -1,12 +1,16 @@
 package edu.farmingdale.csc_311_mod3_group_assignment;
 
 
+import javafx.animation.AnimationTimer;
 import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.paint.Color;
 import javafx.scene.robot.Robot;
+
+import java.util.*;
 
 
 //this class is for the robot it handles the robots movement and applies the image to the image view.
@@ -87,6 +91,101 @@ public class MovableSprite extends Sprite{
         }
     }
 
+
+    public List<Point2D> bfsSolveMaze(double goalX,double goalY,int step){
+        Queue<Point2D> frontier = new LinkedList<>();
+        Map<Point2D, Point2D> cameFrom = new HashMap<>();
+
+        Point2D start = new Point2D(this.getX(),this.getY());
+        frontier.add(start);
+        cameFrom.put(start,null);
+        Point2D[] directions =new Point2D[]{
+                new Point2D(step, 0),
+                new Point2D(-step,0),
+                new Point2D(0,step),
+                new Point2D(0, -step)
+        };
+
+        Point2D endNode =null;
+        while (!frontier.isEmpty()){
+            Point2D current = frontier.poll();
+            if (current.distance(goalX,goalY)< step){
+                endNode = current;
+                break;
+            }
+            for (Point2D dir : directions){
+                Point2D next = current.add(dir);
+                double nx = Math.round(next.getX()/step) *step;
+                double ny = Math.round(next.getY() /step) *step;
+                Point2D nextPoint = new Point2D(nx, ny);
+
+                if (cameFrom.containsKey(nextPoint))
+                    continue;
+                double maxX = this.maze.bounds.getMaxX();
+                double maxY = this.maze.bounds.getMaxY();
+                if (nx < 0 ||nx>maxX||ny<0||ny>maxY)
+                    continue;
+                if (!this.isAreaClear(nx,ny))
+                    continue;
+                frontier.add(nextPoint);
+                cameFrom.put(nextPoint,current);
+            }
+        }
+        if (endNode ==null){
+            return new ArrayList<>();
+        }
+        List<Point2D> path = new LinkedList<>();
+        Point2D current =endNode;
+        while (current != null){
+            path.add(0,current);
+            current = cameFrom.get(current);
+        }
+        return path;
+    }
+
+    public void animateAlongPath(List<Point2D> path){
+        final int[] index = {0};
+        AnimationTimer timer = new AnimationTimer(){
+            @Override
+            public void handle(long now){
+                if (index[0] >= path.size()){
+                    stop();
+                    System.out.println("All done!");
+                    return;
+                }
+                Point2D target = path.get(index[0]);
+                double targetX = target.getX();
+                double targetY = target.getY();
+                double currentX = getX();
+                double currentY = getY();
+                double deltaX = targetX - currentX;
+                double deltaY = targetY - currentY;
+                double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                double speed = 2;
+                if (distance<speed){
+                    setX(targetX);
+                    setY(targetY);
+                    index[0]++;
+                } else{
+                    double moveX =(deltaX/ distance)* speed;
+                    double moveY = (deltaY /distance) * speed;
+                    setX(currentX +moveX);
+                    setY(currentY+ moveY);
+                }
+                render();
+            }
+        };
+        timer.start();
+    }
+
+    public void solveMaze(double goalX, double goalY,int step){
+        List<Point2D> path =bfsSolveMaze(goalX,goalY, step);
+        if (path.isEmpty()){
+            System.out.println("No path found :(");
+        } else{
+            animateAlongPath(path);
+            System.out.println("Look at me go!");
+        }}
 
     public boolean isAreaClear(double posX, double posY){
         //Checks several key pointsaround the sprite
