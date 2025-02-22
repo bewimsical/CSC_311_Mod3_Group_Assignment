@@ -70,6 +70,7 @@ public class MazeController {
     @FXML
     public void initialize(){
         System.out.println("Starting Application");
+        System.out.println("Hello Mr.Roboto!");
         robotButton1.setSelected(true);
         carButton1.setSelected(false);
         currentMaze = new Sprite(maze1_im, maze1);
