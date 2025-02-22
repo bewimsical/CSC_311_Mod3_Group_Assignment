@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Tab;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -46,12 +47,29 @@ public class MazeController {
     @FXML
     private ImageView maze1;
 
+    @FXML
+    private ImageView maze2;
+
+    @FXML
+    private ImageView sprite2;
+
+    @FXML
+    private Tab mazeTab1;
+
+    @FXML
+    private Tab mazeTab2;
+
+
+    private boolean isSolving;
+
 
     private Image robot = new Image(MazeApplication.class.getResource("images/robot.png").toExternalForm());
+    private Image car = new Image(MazeApplication.class.getResource("images/car.png").toExternalForm());
     private Image maze1_im = new Image(MazeApplication.class.getResource("images/maze.png").toExternalForm());
+    private Image maze2_im = new Image(MazeApplication.class.getResource("images/maze2.png").toExternalForm());
     // data members for the current maze and moveable object. Will change when tab changes and radio buttons are pressed
     private MovableSprite currentSprite;
-    private Sprite currentMaze;
+    private Maze currentMaze;
 
     //we don't need this movement is handled in the movable sprite class
 //    private AnimationTimer timer;
@@ -61,37 +79,93 @@ public class MazeController {
      */
     @FXML
     public void initialize(){
-        System.out.println("STARTING APPLICATION");
+        System.out.println("Starting Application");
+        System.out.println("Hello Mr.Roboto!");
         robotButton1.setSelected(true);
-        currentMaze = new Sprite(maze1_im, maze1);
+        carButton1.setSelected(false);
+        currentMaze = new Maze(maze1_im, maze1,25 ,242,537,221);
         currentSprite = new MovableSprite(robot, sprite1, currentMaze);
+        currentSprite.setX(currentSprite.getMaze().getStartX());
+        currentSprite.setY(currentSprite.getMaze().getStartY());
+
+    }
+    @FXML
+    public void initialize1(){
+        robotButton1.setSelected(true);
+        carButton1.setSelected(false);
+        currentMaze = new Maze(maze1_im, maze1, 25 ,242,537,221);
+        currentSprite = new MovableSprite(robot, sprite1, currentMaze);
+        currentSprite.setX(currentSprite.getMaze().getStartX());
+        currentSprite.setY(currentSprite.getMaze().getStartY());
+    }
+    @FXML
+    public void initialize2() {
+        System.out.println("Switching Maze");
+        robotButton2.setSelected(true);
+        carButton2.setSelected(false);
+        currentMaze = new Maze(maze2_im, maze2, 30 ,60,490,330);
+        currentSprite = new MovableSprite(robot, sprite2, currentMaze);
+        currentSprite.setX(currentSprite.getMaze().getStartX());
+        currentSprite.setY(currentSprite.getMaze().getStartY());
     }
     //sets the x and y values to the start of the first maze. If we a maze class then we could set it to the current maze start values
     @FXML
     void restart() {
-        System.out.println("TEST!!");
-        currentSprite.setX(25);
-        currentSprite.setY(242);
+
+        currentSprite.setX(currentSprite.getMaze().getStartX());
+        currentSprite.setY(currentSprite.getMaze().getStartY());
     }
+    @FXML
+    void setrestartMaze1(ActionEvent e) {
+        System.out.println("Returning To Start Position");
+        currentSprite.setX(currentSprite.getMaze().getStartX());
+        currentSprite.setY(currentSprite.getMaze().getStartY());
+        solveMaze1.setDisable(false);
+    }
+
+
 
     //toggles the radio buttons.
     // TODO create new movable sprite instances of the robot and car
     @FXML
     void setSpriteMaze1(ActionEvent e) {
         if (e.getSource().equals(robotButton1)){
+            robotButton1.setSelected(true);
+            currentMaze = new Maze(maze1_im, maze1, 25 ,242,537,221);
+            currentSprite = new MovableSprite(robot, sprite1, currentMaze);
             carButton1.setSelected(false); //
+            currentSprite.setX(currentSprite.getMaze().getStartX());
+            currentSprite.setY(currentSprite.getMaze().getStartY());
+            System.out.println("Arigato Mr.Roboto!");
         }else if (e.getSource().equals(carButton1)){
+            carButton1.setSelected(true);
+            currentSprite = new MovableSprite(car, sprite1, currentMaze);
             robotButton1.setSelected(false);
+            currentSprite.setX(currentSprite.getMaze().getStartX());
+            currentSprite.setY(currentSprite.getMaze().getStartY());
+            System.out.println("VROOM VROOM!");
         }
     }
     @FXML
     void setSpriteMaze2(ActionEvent e) {
         if (e.getSource().equals(robotButton2)){
+            robotButton2.setSelected(true);
+            currentMaze = new Maze(maze2_im, maze2, 30 ,60,490,330);
+            currentSprite = new MovableSprite(robot, sprite2, currentMaze);
             carButton2.setSelected(false);
+            currentSprite.setX(currentSprite.getMaze().getStartX());
+            currentSprite.setY(currentSprite.getMaze().getStartY());
+            System.out.println("Mr.Roboto Part 2!?");
         }else if (e.getSource().equals(carButton2)){
+            carButton2.setSelected(true);
+            currentSprite = new MovableSprite(car, sprite2, currentMaze);
             robotButton2.setSelected(false);
+            currentSprite.setX(currentSprite.getMaze().getStartX());
+            currentSprite.setY(currentSprite.getMaze().getStartY());
+            System.out.println("VROOM VROOM!");
         }
     }
+
 //
 //    // TODO: apply towards robot and sprite
 //    @FXML
@@ -124,15 +198,18 @@ public class MazeController {
 //        };
 //        timer.start();
 //
-////    to check if an object hit a barrier in javaFX
+    ////    to check if an object hit a barrier in javaFX
 //
 //
 //    }
 
-
-
-//Method that makes sprite animation smooth when the maze is solved
     private void animateSpriteAlongPath(List<Point2D> path){
+        restartMaze1.setDisable(true);
+        solveMaze1.setDisable(true);
+        restartMaze2.setDisable(true);
+        solveMaze2.setDisable(true);
+        mazeTab1.setDisable(true);
+        mazeTab2.setDisable(true);
         final int[] index = {0};
 
         AnimationTimer timer = new AnimationTimer(){
@@ -140,6 +217,13 @@ public class MazeController {
             public void handle(long now){
                 if (index[0] >= path.size()){
                     stop();
+                    restartMaze1.setDisable(false);
+                    restartMaze2.setDisable(false);
+                    solveMaze2.setDisable(false);
+                    mazeTab1.setDisable(false);
+                    mazeTab2.setDisable(false);
+
+                    System.out.println("All done!");
                     return;
                 }
                 Point2D target =path.get(index[0]);
@@ -152,23 +236,25 @@ public class MazeController {
                 double distance =Math.sqrt(deltaX*deltaX+deltaY*deltaY);
                 double speed =2;
                 if (distance<speed){
-                    currentSprite.setX(targetX);
+                    currentSprite.setX(targetX); //set x/y already sets the layout
                     currentSprite.setY(targetY);
-                    currentSprite.getSprite().setLayoutX(targetX);
-                    currentSprite.getSprite().setLayoutY(targetY);
+//                    currentSprite.getSprite().setLayoutX(targetX);
+//                    currentSprite.getSprite().setLayoutY(targetY);
                     index[0]++;
                 } else{
                     double moveX = (deltaX /distance) *speed;
                     double moveY =(deltaY/ distance)* speed;
                     currentSprite.setX(currentX+ moveX);
                     currentSprite.setY(currentY +moveY);
-                    currentSprite.getSprite().setLayoutX(currentSprite.getX());
-                    currentSprite.getSprite().setLayoutY(currentSprite.getY());
+//                    currentSprite.getSprite().setLayoutX(currentSprite.getX());
+//                    currentSprite.getSprite().setLayoutY(currentSprite.getY());
                 }
                 currentSprite.render();
+
             }
         };
         timer.start();
+
     }
 
 
@@ -216,7 +302,7 @@ public class MazeController {
         }
 
         if (endNode == null) {
-            System.out.println("No path found :(");
+            //System.out.println("No path found :(");
             return new ArrayList<>();
         }
 
@@ -229,19 +315,22 @@ public class MazeController {
         }
         return path;
     }
-
+    //does not work because end coordinates are out of bounds. We should make a maze class that has startX startY endX and endY values.
     @FXML
     public void mazeSolver1(MouseEvent event){
-        double startX =currentSprite.getX();
+
+        double startX = currentSprite.getX();
         double startY = currentSprite.getY();
-        double goalX =537.0;
-        double goalY = 221.0;
+
+       double goalX = currentSprite.getMaze().getGoalX();//If we make a maze class we can use the current mazes start and end here.
+        double goalY = currentSprite.getMaze().getGoalY();;
         int step = 5;
         List<Point2D> path = bfsSolveMaze(startX,startY,goalX,goalY,step);
         if(path.isEmpty()){
             System.out.println("No path found :(");
         }else{
             animateSpriteAlongPath(path);
+            System.out.println("Look at me go!");
         }
     }
 
@@ -251,19 +340,19 @@ public class MazeController {
     void handleKey(KeyEvent e){
         switch (e.getCode()){
             case KeyCode.W:
-                System.out.println("w pressed");
+                System.out.println("Going up");
                 currentSprite.moveUp();
                 break;
             case KeyCode.A:
-                System.out.println("a pressed");
+                System.out.println("Moving left");
                 currentSprite.moveLeft();
                 break;
             case KeyCode.S:
-                System.out.println("s pressed");
+                System.out.println("Going down");
                 currentSprite.moveDown();
                 break;
             case KeyCode.D:
-                System.out.println("d pressed");
+                System.out.println("Moving right");
                 currentSprite.moveRight();
                 break;
         }
