@@ -52,6 +52,8 @@ public class MazeController {
     @FXML
     private ImageView sprite2;
 
+    private boolean isSolving;
+
 
     private Image robot = new Image(MazeApplication.class.getResource("images/robot.png").toExternalForm());
     private Image car = new Image(MazeApplication.class.getResource("images/car.png").toExternalForm());
@@ -111,6 +113,7 @@ public class MazeController {
         System.out.println("Returning To Start Position");
         currentSprite.setX(25);
         currentSprite.setY(242);
+        solveMaze1.setDisable(false);
     }
     @FXML
     void setrestartMaze2(ActionEvent e) {
@@ -199,6 +202,8 @@ public class MazeController {
 //    }
 
     private void animateSpriteAlongPath(List<Point2D> path){
+        restartMaze1.setDisable(true);
+        solveMaze1.setDisable(true);
         final int[] index = {0};
 
         AnimationTimer timer = new AnimationTimer(){
@@ -206,6 +211,9 @@ public class MazeController {
             public void handle(long now){
                 if (index[0] >= path.size()){
                     stop();
+                    restartMaze1.setDisable(false);
+
+                    System.out.println("All done!");
                     return;
                 }
                 Point2D target =path.get(index[0]);
@@ -232,9 +240,11 @@ public class MazeController {
 //                    currentSprite.getSprite().setLayoutY(currentSprite.getY());
                 }
                 currentSprite.render();
+
             }
         };
         timer.start();
+
     }
 
 
@@ -282,7 +292,7 @@ public class MazeController {
         }
 
         if (endNode == null) {
-            System.out.println("No path found :(");
+            //System.out.println("No path found :(");
             return new ArrayList<>();
         }
 
@@ -302,6 +312,8 @@ public class MazeController {
         double startY = currentSprite.getY();
         double goalX =537.0; //If we make a maze class we can use the current mazes start and end here.
         double goalY = 221.0;
+        //Maze 2 goal double goalX =490.0; //If we make a maze class we can use the current mazes start and end here.
+        //Maze 2 goal double goalY = 330.0;
         int step = 5;
         List<Point2D> path = bfsSolveMaze(startX,startY,goalX,goalY,step);
         if(path.isEmpty()){
@@ -318,19 +330,19 @@ public class MazeController {
     void handleKey(KeyEvent e){
         switch (e.getCode()){
             case KeyCode.W:
-                System.out.println("W pressed");
+                System.out.println("Going up");
                 currentSprite.moveUp();
                 break;
             case KeyCode.A:
-                System.out.println("A pressed");
+                System.out.println("Moving left");
                 currentSprite.moveLeft();
                 break;
             case KeyCode.S:
-                System.out.println("S pressed");
+                System.out.println("Going down");
                 currentSprite.moveDown();
                 break;
             case KeyCode.D:
-                System.out.println("D pressed");
+                System.out.println("Moving right");
                 currentSprite.moveRight();
                 break;
         }

@@ -35,6 +35,7 @@ public class MovableSprite extends Sprite{
            sprite.setLayoutX(x);
         }
 
+
     }
     public void moveRight(){
         double newX = x+5;
@@ -43,6 +44,7 @@ public class MovableSprite extends Sprite{
             x = newX;
             sprite.setLayoutX(x);
         }
+
     }
     public void moveUp(){
         double newY = y-5;
@@ -50,6 +52,7 @@ public class MovableSprite extends Sprite{
             y = newY;
             sprite.setLayoutY(y);
         }
+
     }
     public void moveDown(){
         double newY = y+5;
@@ -58,6 +61,7 @@ public class MovableSprite extends Sprite{
             y = newY;
             sprite.setLayoutY(y);
         }
+
     }
 
     //this checks if the new coordinates will be out of bounds and returns true if they are.
