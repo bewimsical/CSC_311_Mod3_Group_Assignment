@@ -11,7 +11,7 @@
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="574.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.farmingdale.csc_311_mod3_group_assignment.MazeController">
     <tabs>
-        <Tab onSelectionChanged="#initialize1" text="Maze 1">
+        <Tab fx:id="mazeTab1" onSelectionChanged="#initialize1" text="Maze 1">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="648.0">
                     <children>
@@ -36,7 +36,7 @@
                     </children></AnchorPane>
             </content>
         </Tab>
-        <Tab onSelectionChanged="#initialize2" text="Maze2">
+        <Tab fx:id="mazeTab2" onSelectionChanged="#initialize2" text="Maze2">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <children>
@@ -48,7 +48,7 @@
                         </HBox>
                         <HBox layoutX="321.0" layoutY="411.0" prefHeight="35.0" prefWidth="239.0">
                             <children>
-                                <Button fx:id="restartMaze2" mnemonicParsing="false" onAction="#setrestartMaze2" prefHeight="21.0" prefWidth="109.0" text="Restart" />
+                                <Button fx:id="restartMaze2" mnemonicParsing="false" onAction="#setrestartMaze1" prefHeight="21.0" prefWidth="109.0" text="Restart" />
                                 <Button fx:id="solveMaze2" mnemonicParsing="false" onMouseClicked="#mazeSolver1" prefHeight="26.0" prefWidth="129.0" text="Solve Maze" />
                             </children>
                         </HBox>

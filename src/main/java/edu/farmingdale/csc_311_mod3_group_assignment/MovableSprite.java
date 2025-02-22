@@ -8,9 +8,10 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.paint.Color;
 import javafx.scene.robot.Robot;
 
+
 //this class is for the robot it handles the robots movement and applies the image to the image view.
 public class MovableSprite extends Sprite{
-    protected Sprite maze; // this is the maze that the sprite is trying to complete
+    protected Maze maze; // this is the maze that the sprite is trying to complete
     protected Image maze_im; // this is the maze image
     protected double pixelRatio; // the pixel reader works with the full sized image. We need to scale the robots coordinates to get correct readings.
     protected PixelReader pr; // used in the collision detection method. Checks pixels at given coordinates.
@@ -19,12 +20,16 @@ public class MovableSprite extends Sprite{
     public MovableSprite(){
         super();
     }
-    public MovableSprite(Image image, ImageView sprite, Sprite maze){
+    public MovableSprite(Image image, ImageView sprite,Maze maze){
         super(image,sprite);
         this.maze = maze;
         this.maze_im = maze.getImage();
         this.pixelRatio = maze_im.getHeight()/maze.getSprite().getFitHeight();
         this.pr = maze_im.getPixelReader();
+    }
+
+    public Maze getMaze(){
+        return this.maze;
     }
     //All move methods are called on keypress in the controller.
     //These methods check if there will be a collision. If there is no collision, the location of the sprite is changed.
