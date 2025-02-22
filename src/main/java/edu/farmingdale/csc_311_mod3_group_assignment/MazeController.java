@@ -151,6 +151,7 @@ public class MazeController {
             currentSprite.setY(242);
         }
     }
+
 //
 //    // TODO: apply towards robot and sprite
 //    @FXML
