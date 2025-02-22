@@ -69,7 +69,7 @@ public class MazeController {
      */
     @FXML
     public void initialize(){
-        System.out.println("STARTING APPLICATION");
+        System.out.println("Starting Application");
         robotButton1.setSelected(true);
         carButton1.setSelected(false);
         currentMaze = new Sprite(maze1_im, maze1);
@@ -90,7 +90,7 @@ public class MazeController {
     }
     @FXML
     public void initialize2() {
-        System.out.println("SWITCHING MAZE");
+        System.out.println("Switching Maze");
         robotButton2.setSelected(true);
         carButton2.setSelected(false);
         currentMaze = new Sprite(maze2_im, maze2);
@@ -107,13 +107,13 @@ public class MazeController {
     }
     @FXML
     void setrestartMaze1(ActionEvent e) {
-        System.out.println("RETURNING TO START POSITION");
+        System.out.println("Returning To Start Position");
         currentSprite.setX(25);
         currentSprite.setY(242);
     }
     @FXML
     void setrestartMaze2(ActionEvent e) {
-        System.out.println("RETURNING TO START POSITION");
+        System.out.println("Returning To Start Position");
         currentSprite.setX(25);
         currentSprite.setY(242);
     }
@@ -130,12 +130,14 @@ public class MazeController {
             carButton1.setSelected(false); //
             currentSprite.setX(25);
             currentSprite.setY(242);
+            System.out.println("Arigato Mr.Roboto!");
         }else if (e.getSource().equals(carButton1)){
             carButton1.setSelected(true);
             currentSprite = new MovableSprite(car, sprite1, currentMaze);
             robotButton1.setSelected(false);
             currentSprite.setX(25);
             currentSprite.setY(242);
+            System.out.println("VROOM VROOM!");
         }
     }
     @FXML
@@ -147,12 +149,14 @@ public class MazeController {
             carButton2.setSelected(false);
             currentSprite.setX(25);
             currentSprite.setY(242);
+            System.out.println("Mr.Roboto Part 2!?");
         }else if (e.getSource().equals(carButton2)){
             carButton2.setSelected(true);
             currentSprite = new MovableSprite(car, sprite2, currentMaze);
             robotButton2.setSelected(false);
             currentSprite.setX(25);
             currentSprite.setY(242);
+            System.out.println("VROOM VROOM!");
         }
     }
 
@@ -303,6 +307,7 @@ public class MazeController {
             System.out.println("No path found :(");
         }else{
             animateSpriteAlongPath(path);
+            System.out.println("Look at me go!");
         }
     }
 
@@ -312,19 +317,19 @@ public class MazeController {
     void handleKey(KeyEvent e){
         switch (e.getCode()){
             case KeyCode.W:
-                System.out.println("w pressed");
+                System.out.println("W pressed");
                 currentSprite.moveUp();
                 break;
             case KeyCode.A:
-                System.out.println("a pressed");
+                System.out.println("A pressed");
                 currentSprite.moveLeft();
                 break;
             case KeyCode.S:
-                System.out.println("s pressed");
+                System.out.println("S pressed");
                 currentSprite.moveDown();
                 break;
             case KeyCode.D:
-                System.out.println("d pressed");
+                System.out.println("D pressed");
                 currentSprite.moveRight();
                 break;
         }

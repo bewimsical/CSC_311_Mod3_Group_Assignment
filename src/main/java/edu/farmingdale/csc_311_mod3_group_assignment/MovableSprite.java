@@ -72,8 +72,8 @@ public class MovableSprite extends Sprite{
             y = y * pixelRatio;
             Color pixelColor = pr.getColor((int) x, (int) y); // get pixel color
             Color c = new Color(1, 1, 1, 1); // creates a white color object. Could extract to maze background attribute if we make a maze class.
-
             return (!pixelColor.equals(c));
+
         }
     }
 
@@ -82,11 +82,11 @@ public class MovableSprite extends Sprite{
         //Checks several key pointsaround the sprite
         double spriteWidth = sprite.getFitWidth();
         double spriteHeight = sprite.getFitHeight();
-
         return isCollisionPoint(posX, posY) &&
                 isCollisionPoint(posX + spriteWidth, posY) &&
                 isCollisionPoint(posX, posY + spriteHeight) &&
                 isCollisionPoint(posX + spriteWidth, posY + spriteHeight);
+
     }
 
     private boolean isCollisionPoint(double x, double y) {
@@ -95,8 +95,10 @@ public class MovableSprite extends Sprite{
         double maxY = maze.bounds.getMaxY();
 
         if (x <= 0 || x >= maxX || y <= 0 || y >= maxY) {
+
             return false;//outofbounds /=  clear
         } else {
+
             //scales coordinates to the full img
             double checkX = x * pixelRatio;
             double checkY = y * pixelRatio;
