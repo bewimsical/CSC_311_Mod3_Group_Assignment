@@ -34,6 +34,7 @@ public class MovableSprite extends Sprite{
            x = newX;
            sprite.setLayoutX(x);
         }
+
     }
     public void moveRight(){
         double newX = x+5;
@@ -62,7 +63,7 @@ public class MovableSprite extends Sprite{
     //this checks if the new coordinates will be out of bounds and returns true if they are.
     //Then this converts the x and y to match the image and checks if pixel color at the given coordinates is white.
     // It returns false if its white and true if it is ant other color.
-    public boolean isCollision(double x, double y){
+    private boolean isCollision(double x, double y){
         double maxX = maze.bounds.getMaxX();
         double maxY = maze.bounds.getMaxY();
         if (x <= 0 || x >= maxX || y <= 0 || y >= maxY){
@@ -82,30 +83,31 @@ public class MovableSprite extends Sprite{
         //Checks several key pointsaround the sprite
         double spriteWidth = sprite.getFitWidth();
         double spriteHeight = sprite.getFitHeight();
-        return isCollisionPoint(posX, posY) &&
-                isCollisionPoint(posX + spriteWidth, posY) &&
-                isCollisionPoint(posX, posY + spriteHeight) &&
-                isCollisionPoint(posX + spriteWidth, posY + spriteHeight);
+        //Used De Morgan's Law to invert the logic
+        return !(isCollision(posX, posY) ||
+                isCollision(posX + spriteWidth, posY) ||
+                isCollision(posX, posY + spriteHeight) ||
+                isCollision(posX + spriteWidth, posY + spriteHeight));
 
     }
-
-    private boolean isCollisionPoint(double x, double y) {
-        //Uses the maze bounds from the maze sprite
-        double maxX = maze.bounds.getMaxX();
-        double maxY = maze.bounds.getMaxY();
-
-        if (x <= 0 || x >= maxX || y <= 0 || y >= maxY) {
-
-            return false;//outofbounds /=  clear
-        } else {
-
-            //scales coordinates to the full img
-            double checkX = x * pixelRatio;
-            double checkY = y * pixelRatio;
-            Color pixelColor = pr.getColor((int) checkX, (int) checkY);
-            Color white = Color.WHITE;
-            return pixelColor.equals(white);
-        }
-    }
+//This was almost identical to the other is collision method.
+//    private boolean isCollisionPoint(double x, double y) {
+//        //Uses the maze bounds from the maze sprite
+//        double maxX = maze.bounds.getMaxX();
+//        double maxY = maze.bounds.getMaxY();
+//
+//        if (x <= 0 || x >= maxX || y <= 0 || y >= maxY) {
+//
+//            return false;//outofbounds /=  clear
+//        } else {
+//
+//            //scales coordinates to the full img
+//            double checkX = x * pixelRatio;
+//            double checkY = y * pixelRatio;
+//            Color pixelColor = pr.getColor((int) checkX, (int) checkY);
+//            Color white = Color.WHITE;
+//            return pixelColor.equals(white);
+//        }
+//    }
 
 }

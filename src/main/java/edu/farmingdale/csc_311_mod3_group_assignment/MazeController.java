@@ -218,18 +218,18 @@ public class MazeController {
                 double distance =Math.sqrt(deltaX*deltaX+deltaY*deltaY);
                 double speed =2;
                 if (distance<speed){
-                    currentSprite.setX(targetX);
+                    currentSprite.setX(targetX); //set x/y already sets the layout
                     currentSprite.setY(targetY);
-                    currentSprite.getSprite().setLayoutX(targetX);
-                    currentSprite.getSprite().setLayoutY(targetY);
+//                    currentSprite.getSprite().setLayoutX(targetX);
+//                    currentSprite.getSprite().setLayoutY(targetY);
                     index[0]++;
                 } else{
                     double moveX = (deltaX /distance) *speed;
                     double moveY =(deltaY/ distance)* speed;
                     currentSprite.setX(currentX+ moveX);
                     currentSprite.setY(currentY +moveY);
-                    currentSprite.getSprite().setLayoutX(currentSprite.getX());
-                    currentSprite.getSprite().setLayoutY(currentSprite.getY());
+//                    currentSprite.getSprite().setLayoutX(currentSprite.getX());
+//                    currentSprite.getSprite().setLayoutY(currentSprite.getY());
                 }
                 currentSprite.render();
             }
@@ -295,12 +295,12 @@ public class MazeController {
         }
         return path;
     }
-
+    //does not work because end coordinates are out of bounds. We should make a maze class that has startX startY endX and endY values.
     @FXML
     public void mazeSolver1(MouseEvent event){
-        double startX =currentSprite.getX();
+        double startX = currentSprite.getX();
         double startY = currentSprite.getY();
-        double goalX =537.0;
+        double goalX =537.0; //If we make a maze class we can use the current mazes start and end here.
         double goalY = 221.0;
         int step = 5;
         List<Point2D> path = bfsSolveMaze(startX,startY,goalX,goalY,step);

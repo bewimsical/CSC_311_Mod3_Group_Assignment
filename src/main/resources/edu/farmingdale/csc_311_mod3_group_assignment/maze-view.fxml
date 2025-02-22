@@ -49,7 +49,7 @@
                         <HBox layoutX="321.0" layoutY="411.0" prefHeight="35.0" prefWidth="239.0">
                             <children>
                                 <Button fx:id="restartMaze2" mnemonicParsing="false" onAction="#setrestartMaze2" prefHeight="21.0" prefWidth="109.0" text="Restart" />
-                                <Button fx:id="solveMaze2" mnemonicParsing="false" prefHeight="26.0" prefWidth="129.0" text="Solve Maze" />
+                                <Button fx:id="solveMaze2" mnemonicParsing="false" onMouseClicked="#mazeSolver1" prefHeight="26.0" prefWidth="129.0" text="Solve Maze" />
                             </children>
                         </HBox>
                         <ImageView fx:id="maze2" fitHeight="400.0" pickOnBounds="true" preserveRatio="true">
