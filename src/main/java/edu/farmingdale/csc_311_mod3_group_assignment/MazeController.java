@@ -203,59 +203,7 @@ public class MazeController {
 //
 //    }
 
-    private void animateSpriteAlongPath(List<Point2D> path){
-        restartMaze1.setDisable(true);
-        solveMaze1.setDisable(true);
-        restartMaze2.setDisable(true);
-        solveMaze2.setDisable(true);
-        mazeTab1.setDisable(true);
-        mazeTab2.setDisable(true);
-        final int[] index = {0};
 
-        AnimationTimer timer = new AnimationTimer(){
-            @Override
-            public void handle(long now){
-                if (index[0] >= path.size()){
-                    stop();
-                    restartMaze1.setDisable(false);
-                    restartMaze2.setDisable(false);
-                    solveMaze2.setDisable(false);
-                    mazeTab1.setDisable(false);
-                    mazeTab2.setDisable(false);
-
-                    System.out.println("All done!");
-                    return;
-                }
-                Point2D target =path.get(index[0]);
-                double targetX =target.getX();
-                double targetY = target.getY();
-                double currentX =currentSprite.getX();
-                double currentY = currentSprite.getY();
-                double deltaX =targetX -currentX;
-                double deltaY = targetY- currentY;
-                double distance =Math.sqrt(deltaX*deltaX+deltaY*deltaY);
-                double speed =2;
-                if (distance<speed){
-                    currentSprite.setX(targetX); //set x/y already sets the layout
-                    currentSprite.setY(targetY);
-//                    currentSprite.getSprite().setLayoutX(targetX);
-//                    currentSprite.getSprite().setLayoutY(targetY);
-                    index[0]++;
-                } else{
-                    double moveX = (deltaX /distance) *speed;
-                    double moveY =(deltaY/ distance)* speed;
-                    currentSprite.setX(currentX+ moveX);
-                    currentSprite.setY(currentY +moveY);
-//                    currentSprite.getSprite().setLayoutX(currentSprite.getX());
-//                    currentSprite.getSprite().setLayoutY(currentSprite.getY());
-                }
-                currentSprite.render();
-
-            }
-        };
-        timer.start();
-
-    }
 
 
 
