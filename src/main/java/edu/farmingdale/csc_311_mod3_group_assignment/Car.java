@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Affine;
 import javafx.scene.transform.Scale;
 
 import java.util.List;
@@ -20,18 +21,24 @@ public class Car extends MovableSprite{
     @FXML
     private Group sprite;
     private double scale;
+    private Affine transformation;
+
 
     public Car(){
         this.x = 0;
         this.y = 0;
         this.image = null;
+
         this.sprite = null;
         this.bounds = null;
     }
 
     public Car(Group sprite, Maze maze){
         this.sprite = sprite;
+        this.heading = 0;
         this.scale = 0.05; //will not work on maze 1 if 0.05<
+        this.transformation = new Affine();
+        draw();
         render();
         this.x = sprite.getLayoutX();
         this.y = sprite.getLayoutY();
@@ -40,6 +47,8 @@ public class Car extends MovableSprite{
         this.maze_im = maze.getImage();
         this.pixelRatio = maze_im.getHeight()/maze.getSprite().getFitHeight();
         this.pr = maze_im.getPixelReader();
+
+
         System.out.println(x);
         System.out.println(y);
 
@@ -65,7 +74,8 @@ public class Car extends MovableSprite{
             x = newX;
             sprite.setLayoutX(x);
             heading = 180;    //
-            sprite.setRotate(heading); //
+            render();
+            System.out.println(x + ", " + y);
         }
     }
 
@@ -77,9 +87,8 @@ public class Car extends MovableSprite{
             x = newX;
             sprite.setLayoutX(x);
             heading =0;    //
-            System.out.println(x);
-            System.out.println(y);
-            sprite.setRotate(heading); //
+            render(); //
+            System.out.println(x + ", " + y);
         }
     }
 
@@ -90,7 +99,7 @@ public class Car extends MovableSprite{
             y = newY;
             sprite.setLayoutY(y);
             heading = -90;  //
-            sprite.setRotate(heading);  //
+            render();  //
         }
     }
 
@@ -102,7 +111,7 @@ public class Car extends MovableSprite{
             y = newY;
             sprite.setLayoutY(y);
             heading = 90;
-            sprite.setRotate(heading);
+            render();
         }
     }
 
@@ -167,9 +176,18 @@ public class Car extends MovableSprite{
 
     @Override
     protected void render() {
-        draw();
+
         sprite.getTransforms().clear();
-        sprite.getTransforms().add(new Scale(this.scale, this.scale, 0,0));
+        transformation.setToIdentity();
+        transformation.appendRotation(this.heading, sprite.getLayoutBounds().getWidth()*this.scale/2, sprite.getLayoutBounds().getHeight()*this.scale/2);
+        transformation.appendScale(this.scale, this.scale * (this.heading == 180 ? -1 : 1), (this.heading == 180 ? (sprite.getLayoutBounds().getWidth()*this.scale)/2 -10: 0),(this.heading == 180 ? (sprite.getLayoutBounds().getHeight()*this.scale)/2 +10 : 0));
+        //transformation.appendScale(this.scale, this.scale * (this.heading == 180 ? -1 : 1), 0,0);
+
+
+
+        sprite.getTransforms().add(transformation);
+
+        //sprite.getTransforms().add(new Scale(this.scale, this.scale, 0,0));
     }
     private void draw(){
         Polygon body = new Polygon();
