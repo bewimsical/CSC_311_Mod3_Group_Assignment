@@ -4,6 +4,7 @@ import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
@@ -52,6 +53,12 @@ public class MazeController {
 
     @FXML
     private ImageView sprite2;
+
+    @FXML
+    private Group car1;
+
+    @FXML
+    private Group car2;
 
     @FXML
     private Tab mazeTab1;
@@ -133,13 +140,18 @@ public class MazeController {
             robotButton1.setSelected(true);
             currentMaze = new Maze(maze1_im, maze1, 25 ,242,537,221);
             currentSprite = new MovableSprite(robot, sprite1, currentMaze);
+            sprite1.setVisible(true);
+            car1.setVisible(false);
             carButton1.setSelected(false); //
             currentSprite.setX(currentSprite.getMaze().getStartX());
             currentSprite.setY(currentSprite.getMaze().getStartY());
             System.out.println("Arigato Mr.Roboto!");
         }else if (e.getSource().equals(carButton1)){
             carButton1.setSelected(true);
-            currentSprite = new MovableSprite(car, sprite1, currentMaze);
+//            currentSprite = new MovableSprite(car, sprite1, currentMaze);
+            currentSprite = new Car(car1, currentMaze);
+            sprite1.setVisible(false);
+            car1.setVisible(true);
             robotButton1.setSelected(false);
             currentSprite.setX(currentSprite.getMaze().getStartX());
             currentSprite.setY(currentSprite.getMaze().getStartY());
@@ -322,7 +334,7 @@ public class MazeController {
         double startX = currentSprite.getX();
         double startY = currentSprite.getY();
 
-       double goalX = currentSprite.getMaze().getGoalX();//If we make a maze class we can use the current mazes start and end here.
+        double goalX = currentSprite.getMaze().getGoalX();//If we make a maze class we can use the current mazes start and end here.
         double goalY = currentSprite.getMaze().getGoalY();;
         int step = 5;
         List<Point2D> path = bfsSolveMaze(startX,startY,goalX,goalY,step);

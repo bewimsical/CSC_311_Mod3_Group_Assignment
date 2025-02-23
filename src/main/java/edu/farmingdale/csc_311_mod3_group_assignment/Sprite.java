@@ -67,7 +67,7 @@ public class Sprite {
     }
 
     //TODO fix this
-    public void render(){
+    protected void render(){
         this.sprite.setImage(this.image);
     }
 
