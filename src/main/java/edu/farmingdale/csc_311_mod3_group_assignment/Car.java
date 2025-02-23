@@ -4,12 +4,11 @@ import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Scale;
 import javafx.util.Duration;
 import javafx.animation.RotateTransition;
@@ -46,7 +45,10 @@ public class Car extends MovableSprite {
         System.out.println(y);
 
 
+
     }
+
+
 
     @Override
     public void setX(double x) {
@@ -87,24 +89,26 @@ public class Car extends MovableSprite {
 
     @Override
     public void moveUp() {
-        double newY = y - 5;
+        double newY = y -5 ;
         if (!isCollision(x, newY)) {
             y = newY;
             sprite.setLayoutY(y);
-            heading = -90;  //
-            sprite.setRotate(heading);  //
+            heading = -90;
+            sprite.setRotate(heading);
+
         }
     }
 
     @Override
     public void moveDown() {
-        double newY = y + 5;
+        double newY = y +5;
         double height = sprite.getLayoutBounds().getHeight() * this.scale;
         if (!isCollision(x, newY + height)) {
             y = newY;
             sprite.setLayoutY(y);
             heading = 90;
             sprite.setRotate(heading);
+
         }
     }
 
@@ -145,26 +149,53 @@ public class Car extends MovableSprite {
         timer.start();
     }
 
-
     private void animateSprite(double deltaX, double deltaY) {
         double newHeading;
+
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
             newHeading = (deltaX > 0) ? 0 : 180;
         } else {
             newHeading = (deltaY > 0) ? 90 : -90;
         }
-       // sprite.setRotate(heading);
 
         if (newHeading != heading) {
             heading = newHeading;
             applyRotation(heading);
         }
     }
+
   private void applyRotation(double targetAngle) {
-        RotateTransition rotateTransition = new RotateTransition(Duration.millis(200), sprite);
+        RotateTransition rotateTransition = new RotateTransition(Duration.millis(100), sprite);
         rotateTransition.setToAngle(targetAngle);
       rotateTransition.setInterpolator(javafx.animation.Interpolator.EASE_BOTH);
-        rotateTransition.play();
+      double pivotX = sprite.getLayoutBounds().getWidth() /242;
+      double pivotY = sprite.getLayoutBounds().getHeight()/2;
+
+      Rotate rotate = null;
+      for (javafx.scene.transform.Transform t : sprite.getTransforms()) {
+          if (t instanceof Rotate) {
+              rotate = (Rotate) t;
+              break;
+          }
+      }
+      if (rotate == null) {
+          rotate = new Rotate(0, pivotX, pivotY);
+          sprite.getTransforms().add(rotate);
+      } else {
+          rotate.setPivotX(pivotX);
+          rotate.setPivotY(pivotY);
+      }
+      javafx.animation.KeyValue kv = new javafx.animation.KeyValue(rotate.angleProperty(), targetAngle, javafx.animation.Interpolator.EASE_BOTH);
+      javafx.animation.KeyFrame kf = new javafx.animation.KeyFrame(Duration.millis(200), kv);
+      javafx.animation.Timeline timeline = new javafx.animation.Timeline(kf);
+      timeline.play();
+
+
+      sprite.setRotate(targetAngle);
+      sprite.setTranslateX(-pivotX);
+      sprite.setTranslateY(-pivotY);
+
+      rotateTransition.play();
     }
 
     @Override
@@ -183,12 +214,26 @@ public class Car extends MovableSprite {
     protected void render() {
         draw();
         sprite.getTransforms().clear();
+        double pivotX = sprite.getLayoutBounds().getWidth() /242;  //is off placed if its /2
+        double pivotY = sprite.getLayoutBounds().getHeight()/2;
+
+
         sprite.getTransforms().add(new Scale(this.scale, this.scale, sprite.getLayoutBounds().getWidth()/242, sprite.getLayoutBounds().getHeight()/25));
+    }
+    @Override
+    public boolean isCollision(double x, double y) {
+        double scaledX = x * pixelRatio;
+        double scaledY = y * pixelRatio;
+        Color pixelColor = pr.getColor((int) scaledX, (int) scaledY);
+        Color c = new Color(1, 1, 1, 1);
+        return !pixelColor.equals(c);
+
+
     }
     private void draw(){
         Polygon body = new Polygon();
         body.getPoints().addAll(
-                50.0, 50.0,
+                50.0, 50.,
                 100.0, 0.0,
                 230.0, 0.0,
                 280.0, 50.0,
@@ -196,15 +241,7 @@ public class Car extends MovableSprite {
                 380.0, 100.0,
                 0.0, 100.0
         );
-      /** body.getPoints().addAll(
-               50.0, 150.0,
-                100.0, 100.0,
-                250.0, 100.0,
-                300.0, 150.0,
-               400.0, 150.0,
-                450.0, 200.0,
-                0.0, 200.0
-        );*/
+
         body.setFill(Color.PURPLE);
 
         // Windows (Rectangles)
