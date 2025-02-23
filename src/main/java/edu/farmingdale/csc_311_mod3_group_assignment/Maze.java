@@ -17,7 +17,7 @@ public class Maze extends Sprite {
         this.goalY=goalY;
 
     }
-  public double getStartX(){
+    public double getStartX(){
         return this.startX;
   }
     public double getStartY(){
@@ -28,6 +28,10 @@ public class Maze extends Sprite {
     }
     public double getGoalY(){
         return this.goalY;
+    }
+
+    protected void render(){
+        this.sprite.setImage(this.image);
     }
 
 }

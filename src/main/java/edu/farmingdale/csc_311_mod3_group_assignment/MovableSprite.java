@@ -20,7 +20,6 @@ public class MovableSprite extends Sprite{
     protected double pixelRatio; // the pixel reader works with the full sized image. We need to scale the robots coordinates to get correct readings.
     protected PixelReader pr; // used in the collision detection method. Checks pixels at given coordinates.
 
-
     public MovableSprite(){
         super();
     }
@@ -31,6 +30,7 @@ public class MovableSprite extends Sprite{
         this.pixelRatio = maze_im.getHeight()/maze.getSprite().getFitHeight();
         this.pr = maze_im.getPixelReader();
     }
+
 
     public Maze getMaze(){
         return this.maze;
@@ -43,8 +43,6 @@ public class MovableSprite extends Sprite{
            x = newX;
            sprite.setLayoutX(x);
         }
-
-
     }
     public void moveRight(){
         double newX = x+5;
@@ -52,8 +50,9 @@ public class MovableSprite extends Sprite{
         if(!isCollision(newX + width, y)){
             x = newX;
             sprite.setLayoutX(x);
+            System.out.println(x);
+            System.out.println(y);
         }
-
     }
     public void moveUp(){
         double newY = y-5;
@@ -61,7 +60,6 @@ public class MovableSprite extends Sprite{
             y = newY;
             sprite.setLayoutY(y);
         }
-
     }
     public void moveDown(){
         double newY = y+5;
@@ -70,13 +68,12 @@ public class MovableSprite extends Sprite{
             y = newY;
             sprite.setLayoutY(y);
         }
-
     }
 
     //this checks if the new coordinates will be out of bounds and returns true if they are.
     //Then this converts the x and y to match the image and checks if pixel color at the given coordinates is white.
     // It returns false if its white and true if it is ant other color.
-    private boolean isCollision(double x, double y){
+    protected boolean isCollision(double x, double y){
         double maxX = maze.bounds.getMaxX();
         double maxY = maze.bounds.getMaxY();
         if (x <= 0 || x >= maxX || y <= 0 || y >= maxY){
@@ -198,24 +195,4 @@ public class MovableSprite extends Sprite{
                 isCollision(posX + spriteWidth, posY + spriteHeight));
 
     }
-//This was almost identical to the other is collision method.
-//    private boolean isCollisionPoint(double x, double y) {
-//        //Uses the maze bounds from the maze sprite
-//        double maxX = maze.bounds.getMaxX();
-//        double maxY = maze.bounds.getMaxY();
-//
-//        if (x <= 0 || x >= maxX || y <= 0 || y >= maxY) {
-//
-//            return false;//outofbounds /=  clear
-//        } else {
-//
-//            //scales coordinates to the full img
-//            double checkX = x * pixelRatio;
-//            double checkY = y * pixelRatio;
-//            Color pixelColor = pr.getColor((int) checkX, (int) checkY);
-//            Color white = Color.WHITE;
-//            return pixelColor.equals(white);
-//        }
-//    }
-
 }
