@@ -1,6 +1,8 @@
 package edu.farmingdale.csc_311_mod3_group_assignment;
 
+import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,6 +11,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Scale;
+
+import java.util.List;
 
 public class Car extends MovableSprite{
 
@@ -56,22 +60,78 @@ public class Car extends MovableSprite{
 
     @Override
     public void moveLeft() {
-
+        double newX = x-5;
+        if(!isCollision(newX, y)){
+            x = newX;
+            sprite.setLayoutX(x);
+        }
     }
 
     @Override
     public void moveRight() {
-
+        double newX = x+5;
+        double width = sprite.getLayoutBounds().getWidth()*this.scale;
+        if(!isCollision(newX + width, y)){
+            x = newX;
+            sprite.setLayoutX(x);
+            System.out.println(x);
+            System.out.println(y);
+        }
     }
 
     @Override
     public void moveUp() {
-
+        double newY = y-5;
+        if(!isCollision(x, newY)){
+            y = newY;
+            sprite.setLayoutY(y);
+        }
     }
 
     @Override
     public void moveDown() {
+        double newY = y+5;
+        double height = sprite.getLayoutBounds().getHeight()*this.scale;
+        if(!isCollision(x, newY + height)){
+            y = newY;
+            sprite.setLayoutY(y);
+        }
+    }
 
+    @Override
+    public void animateAlongPath(List<Point2D> path) {
+        final int[] index = {0};
+        AnimationTimer timer = new AnimationTimer(){
+            @Override
+            public void handle(long now){
+                if (index[0] >= path.size()){
+                    stop();
+                    System.out.println("All done!");
+                    return;
+                }
+                Point2D target = path.get(index[0]);
+                double targetX = target.getX();
+                double targetY = target.getY();
+                double currentX = getX();
+                double currentY = getY();
+                double deltaX = targetX - currentX;
+                double deltaY = targetY - currentY;
+                double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                double speed = 2;
+                if (distance<speed){
+                    setX(targetX);
+                    setY(targetY);
+                    index[0]++;
+                } else{
+                    double moveX =(deltaX/ distance)* speed;
+                    double moveY = (deltaY /distance) * speed;
+                    setX(currentX +moveX);
+                    setY(currentY+ moveY);
+                }
+                render();
+            }
+        };
+        timer.start();
     }
 
     @Override
