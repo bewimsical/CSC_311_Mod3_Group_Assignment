@@ -28,7 +28,6 @@ public class Car extends MovableSprite{
         this.x = 0;
         this.y = 0;
         this.image = null;
-
         this.sprite = null;
         this.bounds = null;
     }
@@ -47,12 +46,6 @@ public class Car extends MovableSprite{
         this.maze_im = maze.getImage();
         this.pixelRatio = maze_im.getHeight()/maze.getSprite().getFitHeight();
         this.pr = maze_im.getPixelReader();
-
-
-        System.out.println(x);
-        System.out.println(y);
-
-
     }
 
     @Override
@@ -75,7 +68,6 @@ public class Car extends MovableSprite{
             sprite.setLayoutX(x);
             heading = 180;    //
             render();
-            System.out.println(x + ", " + y);
         }
     }
 
@@ -88,7 +80,6 @@ public class Car extends MovableSprite{
             sprite.setLayoutX(x);
             heading =0;    //
             render(); //
-            System.out.println(x + ", " + y);
         }
     }
 
@@ -159,7 +150,7 @@ public class Car extends MovableSprite{
         } else {
             heading = (deltaY > 0) ? 90 : -90;
         }
-        sprite.setRotate(heading);
+        render();
     }
 
     @Override
@@ -176,18 +167,20 @@ public class Car extends MovableSprite{
 
     @Override
     protected void render() {
-
         sprite.getTransforms().clear();
         transformation.setToIdentity();
-        transformation.appendRotation(this.heading, sprite.getLayoutBounds().getWidth()*this.scale/2, sprite.getLayoutBounds().getHeight()*this.scale/2);
-        transformation.appendScale(this.scale, this.scale * (this.heading == 180 ? -1 : 1), (this.heading == 180 ? (sprite.getLayoutBounds().getWidth()*this.scale)/2 -10: 0),(this.heading == 180 ? (sprite.getLayoutBounds().getHeight()*this.scale)/2 +10 : 0));
-        //transformation.appendScale(this.scale, this.scale * (this.heading == 180 ? -1 : 1), 0,0);
-
-
-
+        transformation.appendRotation(
+                this.heading,
+                sprite.getLayoutBounds().getWidth()*this.scale/2,
+                sprite.getLayoutBounds().getHeight()*this.scale/2
+        );
+        transformation.appendScale(
+                this.scale,
+                this.scale * (this.heading == 180 ? -1 : 1),
+                (this.heading == 180 ? (sprite.getLayoutBounds().getWidth()*this.scale)/2 -10: 0),
+                (this.heading == 180 ? (sprite.getLayoutBounds().getHeight()*this.scale)/2 +10 : 0)
+        );
         sprite.getTransforms().add(transformation);
-
-        //sprite.getTransforms().add(new Scale(this.scale, this.scale, 0,0));
     }
     private void draw(){
         Polygon body = new Polygon();
@@ -201,15 +194,6 @@ public class Car extends MovableSprite{
                 380.0, 100.0,
                 0.0, 100.0
         );
-      /** body.getPoints().addAll(
-               50.0, 150.0,
-                100.0, 100.0,
-                250.0, 100.0,
-                300.0, 150.0,
-               400.0, 150.0,
-                450.0, 200.0,
-                0.0, 200.0
-        );*/
         body.setFill(Color.PURPLE);
 
         // Windows (Rectangles)

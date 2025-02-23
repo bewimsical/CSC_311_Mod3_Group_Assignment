@@ -12,7 +12,6 @@ import javafx.scene.robot.Robot;
 
 import java.util.*;
 
-
 //this class is for the robot it handles the robots movement and applies the image to the image view.
 public class MovableSprite extends Sprite{
     protected Maze maze; // this is the maze that the sprite is trying to complete
@@ -30,7 +29,6 @@ public class MovableSprite extends Sprite{
         this.pixelRatio = maze_im.getHeight()/maze.getSprite().getFitHeight();
         this.pr = maze_im.getPixelReader();
     }
-
 
     public Maze getMaze(){
         return this.maze;
@@ -69,7 +67,6 @@ public class MovableSprite extends Sprite{
             sprite.setLayoutY(y);
         }
     }
-
     //this checks if the new coordinates will be out of bounds and returns true if they are.
     //Then this converts the x and y to match the image and checks if pixel color at the given coordinates is white.
     // It returns false if its white and true if it is ant other color.
@@ -84,10 +81,8 @@ public class MovableSprite extends Sprite{
             Color pixelColor = pr.getColor((int) x, (int) y); // get pixel color
             Color c = new Color(1, 1, 1, 1); // creates a white color object. Could extract to maze background attribute if we make a maze class.
             return (!pixelColor.equals(c));
-
         }
     }
-
 
     public List<Point2D> bfsSolveMaze(double goalX,double goalY,int step){
         Queue<Point2D> frontier = new LinkedList<>();
