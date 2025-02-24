@@ -4,18 +4,20 @@ import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+
 import javafx.scene.transform.Affine;
+
 import javafx.scene.transform.Scale;
+import javafx.util.Duration;
+import javafx.animation.RotateTransition;
 
 import java.util.List;
 
-public class Car extends MovableSprite{
+public class Car extends MovableSprite {
 
     private double heading;
     @FXML
@@ -24,7 +26,7 @@ public class Car extends MovableSprite{
     private Affine transformation;
 
 
-    public Car(){
+    public Car() {
         this.x = 0;
         this.y = 0;
         this.image = null;
@@ -32,7 +34,7 @@ public class Car extends MovableSprite{
         this.bounds = null;
     }
 
-    public Car(Group sprite, Maze maze){
+    public Car(Group sprite, Maze maze) {
         this.sprite = sprite;
         this.heading = 0;
         this.scale = 0.05; //will not work on maze 1 if 0.05<
@@ -44,9 +46,12 @@ public class Car extends MovableSprite{
         this.bounds = sprite.getBoundsInParent();
         this.maze = maze;
         this.maze_im = maze.getImage();
-        this.pixelRatio = maze_im.getHeight()/maze.getSprite().getFitHeight();
+        this.pixelRatio = maze_im.getHeight() / maze.getSprite().getFitHeight();
         this.pr = maze_im.getPixelReader();
+
     }
+
+
 
     @Override
     public void setX(double x) {
@@ -62,8 +67,8 @@ public class Car extends MovableSprite{
 
     @Override
     public void moveLeft() {
-        double newX = x-5;
-        if(!isCollision(newX, y)){
+        double newX = x - 5;
+        if (!isCollision(newX, y)) {
             x = newX;
             sprite.setLayoutX(x);
             heading = 180;    //
@@ -73,46 +78,52 @@ public class Car extends MovableSprite{
 
     @Override
     public void moveRight() {
-        double newX = x+5;
-        double width = sprite.getLayoutBounds().getWidth()*this.scale;
-        if(!isCollision(newX + width, y)){
+        double newX = x + 5;
+        double width = sprite.getLayoutBounds().getWidth() * this.scale;
+        if (!isCollision(newX + width, y)) {
             x = newX;
             sprite.setLayoutX(x);
+
             heading =0;    //
             render(); //
+
         }
     }
 
     @Override
     public void moveUp() {
-        double newY = y-5;
-        if(!isCollision(x, newY  )){
+        double newY = y -5 ;
+        if (!isCollision(x, newY)) {
             y = newY;
             sprite.setLayoutY(y);
+
             heading = -90;  //
             render();  //
+
         }
     }
 
     @Override
     public void moveDown() {
-        double newY = y+5;
-        double height = sprite.getLayoutBounds().getHeight()*this.scale;
-        if(!isCollision(x, newY + height)){
+        double newY = y +5;
+        double height = sprite.getLayoutBounds().getHeight() * this.scale;
+        if (!isCollision(x, newY + height)) {
             y = newY;
             sprite.setLayoutY(y);
             heading = 90;
+
             render();
+
         }
     }
 
     @Override
-   public void animateAlongPath(List<Point2D> path) {
+    public void animateAlongPath(List<Point2D> path) {
         final int[] index = {0};
-        AnimationTimer timer = new AnimationTimer(){
+        AnimationTimer timer = new AnimationTimer() {
             @Override
-            public void handle(long now){
-                if (index[0] >= path.size()){
+            public void handle(long now) {
+                if (index[0] >= path.size()) {
                     stop();
                     System.out.println("All done!");
                     return;
@@ -126,31 +137,34 @@ public class Car extends MovableSprite{
                 double deltaY = targetY - currentY;
                 double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
                 double speed = 2;
-                if (distance<speed){
+                if (distance < speed) {
                     setX(targetX);
                     setY(targetY);
                     index[0]++;
-                } else{
-                    double moveX =(deltaX/ distance)* speed;
-                    double moveY = (deltaY /distance) * speed;
-                    setX(currentX +moveX);
-                    setY(currentY+ moveY);
+                } else {
+                    double moveX = (deltaX / distance) * speed;
+                    double moveY = (deltaY / distance) * speed;
+                    setX(currentX + moveX);
+                    setY(currentY + moveY);
                 }
-                animateSprite(deltaX,deltaY);
+                animateSprite(deltaX, deltaY);
                 render();
             }
         };
         timer.start();
     }
 
+    private void animateSprite(double deltaX, double deltaY) {
+        double newHeading;
 
-    private void animateSprite(double deltaX, double deltaY){
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
-            heading = (deltaX > 0) ? 0 : 180;
+            newHeading = (deltaX > 0) ? 0 : 180;
         } else {
-            heading = (deltaY > 0) ? 90 : -90;
+            newHeading = (deltaY > 0) ? 90 : -90;
         }
+
         render();
+
     }
 
     @Override
@@ -168,6 +182,7 @@ public class Car extends MovableSprite{
     @Override
     protected void render() {
         sprite.getTransforms().clear();
+
         transformation.setToIdentity();
         transformation.appendRotation(
                 this.heading,
@@ -181,12 +196,12 @@ public class Car extends MovableSprite{
                 (this.heading == 180 ? (sprite.getLayoutBounds().getHeight()*this.scale)/2 +10 : 0)
         );
         sprite.getTransforms().add(transformation);
+
     }
     private void draw(){
         Polygon body = new Polygon();
         body.getPoints().addAll(
-
-                50.0, 50.0,
+                50.0, 50.,
                 100.0, 0.0,
                 230.0, 0.0,
                 280.0, 50.0,
@@ -194,6 +209,7 @@ public class Car extends MovableSprite{
                 380.0, 100.0,
                 0.0, 100.0
         );
+
         body.setFill(Color.PURPLE);
 
         // Windows (Rectangles)
