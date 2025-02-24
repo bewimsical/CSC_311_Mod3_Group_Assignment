@@ -155,12 +155,10 @@ public class Car extends MovableSprite {
     }
 
     private void animateSprite(double deltaX, double deltaY) {
-        double newHeading;
-
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
-            newHeading = (deltaX > 0) ? 0 : 180;
+            heading = (deltaX > 0) ? 0 : 180;
         } else {
-            newHeading = (deltaY > 0) ? 90 : -90;
+            heading = (deltaY > 0) ? 90 : -90;
         }
 
         render();
@@ -193,7 +191,7 @@ public class Car extends MovableSprite {
                 this.scale,
                 this.scale * (this.heading == 180 ? -1 : 1),
                 (this.heading == 180 ? (sprite.getLayoutBounds().getWidth()*this.scale)/2 -10: 0),
-                (this.heading == 180 ? (sprite.getLayoutBounds().getHeight()*this.scale)/2 +10 : 0)
+                (this.heading == 180 ? (sprite.getLayoutBounds().getHeight()*this.scale)/2 +3 : 0)
         );
         sprite.getTransforms().add(transformation);
 
@@ -201,7 +199,7 @@ public class Car extends MovableSprite {
     private void draw(){
         Polygon body = new Polygon();
         body.getPoints().addAll(
-                50.0, 50.,
+                50.0, 50.0,
                 100.0, 0.0,
                 230.0, 0.0,
                 280.0, 50.0,
