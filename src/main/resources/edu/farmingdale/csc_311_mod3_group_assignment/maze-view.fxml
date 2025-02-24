@@ -24,7 +24,7 @@
                         </HBox>
                         <HBox layoutX="321.0" layoutY="411.0" prefHeight="35.0" prefWidth="239.0">
                             <children>
-                                <Button fx:id="restartMaze1" mnemonicParsing="false" onAction="#setrestartMaze1" onMouseClicked="#restart" prefHeight="21.0" prefWidth="109.0" text="Restart" />
+                                <Button fx:id="restartMaze1" mnemonicParsing="false" onAction="#setrestartMaze1"  prefHeight="21.0" prefWidth="109.0" text="Restart" />
                                 <Button fx:id="solveMaze1" mnemonicParsing="false" onMouseClicked="#mazeSolver1" prefHeight="26.0" prefWidth="129.0" text="Solve Maze" />
                             </children>
                         </HBox>
